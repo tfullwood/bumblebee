@@ -3,45 +3,108 @@ const ObjectId = require('mongoose').Types.ObjectId;
 const { User } = require('../models/users');
 
 function getUsers(req, res, next) {
-    return res.send('working')
+    //TODO - add functionality for sort, orderBy, filter, and fields
+        //Validate data
+            //Is limit & offset a num
+    const params = [
+        req.body.limit || 100,
+        req.body.offset || 0,
+        '', //sort
+        '', //orderBy
+        '', //filter
+        '' //fields
+    ]
+
+    User.list(...params)
+        .then((users) => {
+            //TODO - map this out according to whatever we decide for the persons object
+            return res.json({
+                persons: [
+                    users
+                ]
+            })
+        })
+        .catch((e) => {
+            return next({
+                message: e.message,
+                status: e.status,
+                stack: e.stack
+            })
+        })
 };
 
 function getUser(req, res, next) {
-    return res.send('TODO')
+    if (!req.params.id || !ObjectId.isValid(req.params.id)) {
+        return res.status(400).json({
+            status: 'error',
+            error: 'Missing or invalid sourcedId'
+        })
+    }
+    
+    User.get(req.params.id)
+        .then((user) => {
+            //TODO - map this out according to whatever we decide for the persons object
+            return res.json({
+                person: {
+                    sourcedId: user._id,
+                    status: user.status,
+                    dateLastModified: user.dateLastModified,
+                    //not included in spec
+                    givenName: user.name[0].givenName,
+                    surname: user.name[0].surname,
+                    username: user.username
+                }
+            })
+        })
+        .catch((e) => {
+            console.log(e);
+            
+            return next({
+                message: e.message,
+                status: e.status,
+                stack: e.stack
+            })
+        })
 }
 
 function createUser(req, res, next) {
     var errors = [];
     
-    if (!req.body.firstName) {
+    if (!req.body.givenName) {
         errors.push('Missing required field: firstName');
     }
-    if (!req.body.lastName) {
+    if (!req.body.surname) {
         errors.push('Missing required field: lastName');
+    }
+    if (!req.body.username) {
+        errors.push('Missing required field: username')
     }
 
     if (!_.isEmpty(errors)) {
         return res.status(400).json({
             status: 'error',
-            data: {
+            error: {
                 errors
             }
         })
     }
 
     //TODO - validate email, sanitize
+        //Probably wont actually do this for the hackathon
     var user = new User({
-        name: {
-            firstName: req.body.firstName,
-            lastName: req.body.lastName
-        }
+        name: [
+            {
+                givenName: req.body.givenName,
+                surname: req.body.surname
+            }
+        ],
+        username: req.body.username
     })
 
     user.save()
         .then((user) => {
             return res.json({
-                data: user,
-                status: 'ok'
+                person: user
             })
         })
         .catch((e) => {
@@ -51,23 +114,6 @@ function createUser(req, res, next) {
                 stack: e
             })
         })
-
-
-    
-        // sourcedId
-        // status
-        // dateLastModified
-        // metadata - NA
-        // name
-        // address
-        // contactInfo
-        // demographics
-        // role
-        // agent
-        // credentials
-
-    
-    //res.send(`this is the id ${req.params.id}`)
 }
 
 function updateUser(req, res, next) {

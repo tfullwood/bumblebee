@@ -20,12 +20,12 @@ function errorMiddleware(err, req, res, next) {
     error.save().then((doc) => {
       return res.status(status).json({
         message: err.message,
-        status: 'error'
+        status
       })
     }, (e) => {
       return res.status(status).json({
         message: err.message,
-        status: 'error',
+        status,
         log: 'Failed to log error. Please contact us to resolve error.'
       })
     })
@@ -50,13 +50,13 @@ function errorMiddleware(err, req, res, next) {
     error.save().then((doc) => {
       return res.status(status).json({
         message: err.message,
-        status: 'error',
+        status,
         error: err.stack
       })
     }, (e) => {
       return res.status(status).json({
         message: err.message,
-        status: 'error',
+        status,
         error: err.stack,
         log: 'Failed to log error. Please contact us to resolve error.'
       })
