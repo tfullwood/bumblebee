@@ -57,8 +57,6 @@ function getUser(req, res, next) {
             })
         })
         .catch((e) => {
-            console.log(e);
-            
             return next({
                 message: e.message,
                 status: e.status,
