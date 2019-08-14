@@ -1,0 +1,2762 @@
+{
+    "openapi" : "3.0.0",
+    "info" : {
+        "version" : "1.0",
+        "title" : "EDU-API OpenAPI (JSON) Definition",
+        "description" : "The EDU-API Education 1.0 service binding is available in REST/JSON. The model is based upon the IMS PSM modelling approach.",
+        "termsOfService" : "https://www.imsglobal.org/license.html",
+        "contact" : {
+            "name" : "Lisa Mattson (COO), IMS Global ",
+            "url" : "http://www.imsglobal.org",
+            "email" : "lmattson@imsglobal.org"
+        },
+        "license" : {
+            "name" : "IMS Global",
+            "url" : "https://www.imsglobal.org/license.html"
+        }
+    },
+    "servers" : [
+        {
+            "url" : "www.imsglobal.org/ims/eduapi/v1p0",
+            "description" : "The above Server URL should be changed to the actual server location."
+        }
+    ],
+    "tags" : [
+        {
+            "name" : "EducationOfferingsManagement",
+            "description" : "No description supplied."
+        },
+        {
+            "name" : "EducationsManagement",
+            "description" : "No description supplied."
+        },
+        {
+            "name" : "OfferingAssociationsManagement",
+            "description" : "No description supplied."
+        },
+        {
+            "name" : "PersonsManagement",
+            "description" : "No description supplied."
+        }
+    ],
+    "paths" : {
+        "/educationOfferings" : {
+            "get" : {
+                "operationId" : "getAllEducationOfferings",
+                "summary" : "The REST read request message for the getAllEducationOfferings() API call.",
+                "tags" : [ "EducationOfferingsManagement" ],
+                "description" : "...not supplied...",
+                "parameters" : [
+                    {
+                        "name" : "limit",
+                        "in" : "query",
+                        "description" : "To define the download segmentation value i.e. the maximum number of records to be contained in the response.",
+                        "required" : false,
+                        "schema" : {
+                            "default" : 100,
+                            "minimum" : 1
+                        },
+                        "style" : "form",
+                        "allowEmptyValue" : false
+                    },
+                    {
+                        "name" : "offset",
+                        "in" : "query",
+                        "description" : "The number of the first record to be supplied in the segmented response message.",
+                        "required" : false,
+                        "schema" : {
+                            "default" : 0,
+                            "minimum" : 0
+                        },
+                        "style" : "form",
+                        "allowEmptyValue" : false
+                    },
+                    {
+                        "name" : "sort",
+                        "in" : "query",
+                        "description" : "Identifies the sort criteria to be used for the records in the response message. Use with the orderBy parameter. The sort order should follow the [UNICODE, 16] standard.",
+                        "required" : false,
+                        "schema" : {
+                        },
+                        "style" : "form",
+                        "allowEmptyValue" : false
+                    },
+                    {
+                        "name" : "orderBy",
+                        "in" : "query",
+                        "description" : "The form of ordering for response to the sorted request i.e. ascending (asc) or descending (desc). The sort order should follow the [UNICODE, 16] standard.",
+                        "required" : false,
+                        "schema" : {
+                        },
+                        "style" : "form",
+                        "allowEmptyValue" : false
+                    },
+                    {
+                        "name" : "filter",
+                        "in" : "query",
+                        "description" : "The filtering rules to be applied when identifying the records to be supplied in the response message. The sort order should follow the [UNICODE, 16] standard.",
+                        "required" : false,
+                        "schema" : {
+                        },
+                        "style" : "form",
+                        "allowEmptyValue" : false
+                    },
+                    {
+                        "name" : "fields",
+                        "in" : "query",
+                        "description" : "To identify the range of fields that should be supplied in the response message.",
+                        "required" : false,
+                        "schema" : {
+                            "type" : "array",
+                            "items" : {
+                                "type" : "string"
+                            }
+                        },
+                        "style" : "form",
+                        "allowEmptyValue" : false
+                    }
+                ],
+                "responses" : {
+                    "default" : {
+                        "description" : "This is the default error response when no other appropriate code is available.  This would be accompanied by the 'codeMajor/severity' values of 'failure/error'. ",
+                        "content" : {
+                            "application/json" : {
+                                "schema" : {
+                                    "$ref" : "#/components/schemas/imsx_StatusInfoDType"
+                                }
+                            }
+                        }
+                    },
+                    "200" : {
+                        "description" : "The request was successfully completed and a collection has been returned. This would be accompanied by the 'codeMajor/severity' values of 'success/status' and for a REST binding a HTTP code of '200'.",
+                        "content" : {
+                            "application/json" : {
+                                "schema" : {
+                                    "$ref" : "#/components/schemas/EducationOfferingSetDType"
+                                }
+                            }
+                        }
+                    },
+                    "400" : {
+                        "description" : "Either an invalid selection field or invalid filter selection was supplied and data filtering on the selection criteria was not possible i.e. 'invalid_selection_field' or  'invalid_filter_field' respectively. This is accompanied by the 'codeMajor/severity' values of 'failure/error'. ",
+                        "content" : {
+                            "application/json" : {
+                                "schema" : {
+                                    "$ref" : "#/components/schemas/imsx_StatusInfoDType"
+                                }
+                            }
+                        }
+                    },
+                    "401" : {
+                        "description" : "The request was not correctly authorised i.e. 'unauthorisedrequest'. This would be accompanied by the 'codeMajor/severity' values of 'failure/error'. ",
+                        "content" : {
+                            "application/json" : {
+                                "schema" : {
+                                    "$ref" : "#/components/schemas/imsx_StatusInfoDType"
+                                }
+                            }
+                        }
+                    },
+                    "403" : {
+                        "description" : "This is used to indicate that the server can be reached and process the request but refuses to take any further action i.e. 'forbidden'. This would be accompanied by the 'codeMajor/severity' values of 'failure/error'. ",
+                        "content" : {
+                            "application/json" : {
+                                "schema" : {
+                                    "$ref" : "#/components/schemas/imsx_StatusInfoDType"
+                                }
+                            }
+                        }
+                    },
+                    "422" : {
+                        "description" : "This error condition may occur if a JSON request body contains well-formed (i.e. syntactically correct), but semantically erroneous, JSON instructions. This would be accompanied by the 'codeMajor/severity' values of 'failure/error'. ",
+                        "content" : {
+                            "application/json" : {
+                                "schema" : {
+                                    "$ref" : "#/components/schemas/imsx_StatusInfoDType"
+                                }
+                            }
+                        }
+                    },
+                    "429" : {
+                        "description" : "The server is receiving too many requests i.e. 'server_busy'. Retry at a later time. This would be accompanied by the 'codeMajor/severity' values of 'failure/error'. ",
+                        "content" : {
+                            "application/json" : {
+                                "schema" : {
+                                    "$ref" : "#/components/schemas/imsx_StatusInfoDType"
+                                }
+                            }
+                        }
+                    },
+                    "500" : {
+                        "description" : "This code should be used only if there is catastrophic error and there is not a more appropriate code i.e. 'internal_server_error'. This would be accompanied by the 'codeMajor/severity' values of 'failure/error'. ",
+                        "content" : {
+                            "application/json" : {
+                                "schema" : {
+                                    "$ref" : "#/components/schemas/imsx_StatusInfoDType"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/educationOfferings/{sourcedId}" : {
+            "get" : {
+                "operationId" : "getEducationOffering",
+                "summary" : "The REST read request message for the getEducationOffering() API call.",
+                "tags" : [ "EducationOfferingsManagement" ],
+                "description" : "...not supplied...",
+                "parameters" : [
+                    {
+                        "name" : "sourcedId",
+                        "in" : "path",
+                        "description" : "...tbd...",
+                        "required" : true,
+                        "schema" : {
+                            "type" : "string"
+                        },
+                        "style" : "simple"
+                    },
+                    {
+                        "name" : "fields",
+                        "in" : "query",
+                        "description" : "To identify the range of fields that should be supplied in the response message.",
+                        "required" : false,
+                        "schema" : {
+                            "type" : "array",
+                            "items" : {
+                                "type" : "string"
+                            }
+                        },
+                        "style" : "form",
+                        "allowEmptyValue" : false
+                    }
+                ],
+                "responses" : {
+                    "default" : {
+                        "description" : "This is the default error response when no other appropriate code is available.  This would be accompanied by the 'codeMajor/severity' values of 'failure/error'. ",
+                        "content" : {
+                            "application/json" : {
+                                "schema" : {
+                                    "$ref" : "#/components/schemas/imsx_StatusInfoDType"
+                                }
+                            }
+                        }
+                    },
+                    "200" : {
+                        "description" : "The request was successfully completed and a record has been returned. This would be accompanied by the 'codeMajor/severity' values of 'success/status' and for a REST binding a HTTP code of '200'.",
+                        "content" : {
+                            "application/json" : {
+                                "schema" : {
+                                    "$ref" : "#/components/schemas/SingleEducationOfferingDType"
+                                }
+                            }
+                        }
+                    },
+                    "400" : {
+                        "description" : "Either an invalid selection field or invalid filter selection was supplied and data filtering on the selection criteria was not possible i.e. 'invalid_selection_field' or  'invalid_filter_field' respectively. This is accompanied by the 'codeMajor/severity' values of 'failure/error'. ",
+                        "content" : {
+                            "application/json" : {
+                                "schema" : {
+                                    "$ref" : "#/components/schemas/imsx_StatusInfoDType"
+                                }
+                            }
+                        }
+                    },
+                    "401" : {
+                        "description" : "The request was not correctly authorised i.e. 'unauthorisedrequest'. This would be accompanied by the 'codeMajor/severity' values of 'failure/error'. ",
+                        "content" : {
+                            "application/json" : {
+                                "schema" : {
+                                    "$ref" : "#/components/schemas/imsx_StatusInfoDType"
+                                }
+                            }
+                        }
+                    },
+                    "403" : {
+                        "description" : "This is used to indicate that the server can be reached and process the request but refuses to take any further action i.e. 'forbidden'. This would be accompanied by the 'codeMajor/severity' values of 'failure/error'. ",
+                        "content" : {
+                            "application/json" : {
+                                "schema" : {
+                                    "$ref" : "#/components/schemas/imsx_StatusInfoDType"
+                                }
+                            }
+                        }
+                    },
+                    "404" : {
+                        "description" : "Either the supplied identifier is unknown in the Service Provider and so the object could not be changed or an invalid GUID has been supplied. This would be accompanied by the 'codeMajor/severity' values of 'failure/error'. The statement 'Unknown Object' should also be presented. ",
+                        "content" : {
+                            "application/json" : {
+                                "schema" : {
+                                    "$ref" : "#/components/schemas/imsx_StatusInfoDType"
+                                }
+                            }
+                        }
+                    },
+                    "422" : {
+                        "description" : "This error condition may occur if a JSON request body contains well-formed (i.e. syntactically correct), but semantically erroneous, JSON instructions. This would be accompanied by the 'codeMajor/severity' values of 'failure/error'. ",
+                        "content" : {
+                            "application/json" : {
+                                "schema" : {
+                                    "$ref" : "#/components/schemas/imsx_StatusInfoDType"
+                                }
+                            }
+                        }
+                    },
+                    "429" : {
+                        "description" : "The server is receiving too many requests i.e. 'server_busy'. Retry at a later time. This would be accompanied by the 'codeMajor/severity' values of 'failure/error'. ",
+                        "content" : {
+                            "application/json" : {
+                                "schema" : {
+                                    "$ref" : "#/components/schemas/imsx_StatusInfoDType"
+                                }
+                            }
+                        }
+                    },
+                    "500" : {
+                        "description" : "This code should be used only if there is catastrophic error and there is not a more appropriate code i.e. 'internal_server_error'. This would be accompanied by the 'codeMajor/severity' values of 'failure/error'. ",
+                        "content" : {
+                            "application/json" : {
+                                "schema" : {
+                                    "$ref" : "#/components/schemas/imsx_StatusInfoDType"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete" : {
+                "operationId" : "deleteEducationOffering",
+                "summary" : "The REST delete request message for the deleteEducationOffering() API call.",
+                "tags" : [ "EducationOfferingsManagement" ],
+                "description" : "...not supplied...",
+                "parameters" : [
+                    {
+                        "name" : "sourcedId",
+                        "in" : "path",
+                        "description" : "...tbd...",
+                        "required" : true,
+                        "schema" : {
+                            "type" : "string"
+                        },
+                        "style" : "simple"
+                    }
+                ],
+                "responses" : {
+                    "default" : {
+                        "description" : "This is the default error response when no other appropriate code is available.  This would be accompanied by the 'codeMajor/severity' values of 'failure/error'. ",
+                        "content" : {
+                            "application/json" : {
+                                "schema" : {
+                                    "$ref" : "#/components/schemas/imsx_StatusInfoDType"
+                                }
+                            }
+                        }
+                    },
+                    "204" : {
+                        "description" : "...tbd (Response description)..."
+                    },
+                    "400" : {
+                        "description" : "Either an invalid selection field or invalid filter selection was supplied and data filtering on the selection criteria was not possible i.e. 'invalid_selection_field' or  'invalid_filter_field' respectively. This is accompanied by the 'codeMajor/severity' values of 'failure/error'. ",
+                        "content" : {
+                            "application/json" : {
+                                "schema" : {
+                                    "$ref" : "#/components/schemas/imsx_StatusInfoDType"
+                                }
+                            }
+                        }
+                    },
+                    "401" : {
+                        "description" : "The request was not correctly authorised i.e. 'unauthorisedrequest'. This would be accompanied by the 'codeMajor/severity' values of 'failure/error'. ",
+                        "content" : {
+                            "application/json" : {
+                                "schema" : {
+                                    "$ref" : "#/components/schemas/imsx_StatusInfoDType"
+                                }
+                            }
+                        }
+                    },
+                    "403" : {
+                        "description" : "This is used to indicate that the server can be reached and process the request but refuses to take any further action i.e. 'forbidden'. This would be accompanied by the 'codeMajor/severity' values of 'failure/error'. ",
+                        "content" : {
+                            "application/json" : {
+                                "schema" : {
+                                    "$ref" : "#/components/schemas/imsx_StatusInfoDType"
+                                }
+                            }
+                        }
+                    },
+                    "404" : {
+                        "description" : "Either the supplied identifier is unknown in the Service Provider and so the object could not be changed or an invalid GUID has been supplied. This would be accompanied by the 'codeMajor/severity' values of 'failure/error'. The statement 'Unknown Object' should also be presented. ",
+                        "content" : {
+                            "application/json" : {
+                                "schema" : {
+                                    "$ref" : "#/components/schemas/imsx_StatusInfoDType"
+                                }
+                            }
+                        }
+                    },
+                    "422" : {
+                        "description" : "This error condition may occur if a JSON request body contains well-formed (i.e. syntactically correct), but semantically erroneous, JSON instructions. This would be accompanied by the 'codeMajor/severity' values of 'failure/error'. ",
+                        "content" : {
+                            "application/json" : {
+                                "schema" : {
+                                    "$ref" : "#/components/schemas/imsx_StatusInfoDType"
+                                }
+                            }
+                        }
+                    },
+                    "429" : {
+                        "description" : "The server is receiving too many requests i.e. 'server_busy'. Retry at a later time. This would be accompanied by the 'codeMajor/severity' values of 'failure/error'. ",
+                        "content" : {
+                            "application/json" : {
+                                "schema" : {
+                                    "$ref" : "#/components/schemas/imsx_StatusInfoDType"
+                                }
+                            }
+                        }
+                    },
+                    "500" : {
+                        "description" : "This code should be used only if there is catastrophic error and there is not a more appropriate code i.e. 'internal_server_error'. This would be accompanied by the 'codeMajor/severity' values of 'failure/error'. ",
+                        "content" : {
+                            "application/json" : {
+                                "schema" : {
+                                    "$ref" : "#/components/schemas/imsx_StatusInfoDType"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "put" : {
+                "operationId" : "putEducationOffering",
+                "summary" : "The REST create request message for the putEducationOffering() API call.",
+                "tags" : [ "EducationOfferingsManagement" ],
+                "description" : "...not supplied...",
+                "parameters" : [
+                    {
+                        "name" : "sourcedId",
+                        "in" : "path",
+                        "description" : "...tbd...",
+                        "required" : true,
+                        "schema" : {
+                            "type" : "string"
+                        },
+                        "style" : "simple"
+                    }
+                ],
+                "requestBody" : {
+                    "description" : "...tbd...",
+                    "content" : {
+                        "application/json" : {
+                            "schema" : {
+                                "$ref" : "#/components/schemas/SingleEducationOfferingDType"
+                            }
+                        }
+                    },
+                    "required" : true
+                },
+                "responses" : {
+                    "default" : {
+                        "description" : "This is the default error response when no other appropriate code is available.  This would be accompanied by the 'codeMajor/severity' values of 'failure/error'. ",
+                        "content" : {
+                            "application/json" : {
+                                "schema" : {
+                                    "$ref" : "#/components/schemas/imsx_StatusInfoDType"
+                                }
+                            }
+                        }
+                    },
+                    "201" : {
+                        "description" : "...tbd (Response description)...",
+                        "content" : {
+                            "application/json" : {
+                                "schema" : {
+                                    "$ref" : "#/components/schemas/imsx_StatusInfoDType"
+                                }
+                            }
+                        }
+                    },
+                    "400" : {
+                        "description" : "Either an invalid selection field or invalid filter selection was supplied and data filtering on the selection criteria was not possible i.e. 'invalid_selection_field' or  'invalid_filter_field' respectively. This is accompanied by the 'codeMajor/severity' values of 'failure/error'. ",
+                        "content" : {
+                            "application/json" : {
+                                "schema" : {
+                                    "$ref" : "#/components/schemas/imsx_StatusInfoDType"
+                                }
+                            }
+                        }
+                    },
+                    "401" : {
+                        "description" : "The request was not correctly authorised i.e. 'unauthorisedrequest'. This would be accompanied by the 'codeMajor/severity' values of 'failure/error'. ",
+                        "content" : {
+                            "application/json" : {
+                                "schema" : {
+                                    "$ref" : "#/components/schemas/imsx_StatusInfoDType"
+                                }
+                            }
+                        }
+                    },
+                    "403" : {
+                        "description" : "This is used to indicate that the server can be reached and process the request but refuses to take any further action i.e. 'forbidden'. This would be accompanied by the 'codeMajor/severity' values of 'failure/error'. ",
+                        "content" : {
+                            "application/json" : {
+                                "schema" : {
+                                    "$ref" : "#/components/schemas/imsx_StatusInfoDType"
+                                }
+                            }
+                        }
+                    },
+                    "422" : {
+                        "description" : "This error condition may occur if a JSON request body contains well-formed (i.e. syntactically correct), but semantically erroneous, JSON instructions. This would be accompanied by the 'codeMajor/severity' values of 'failure/error'. ",
+                        "content" : {
+                            "application/json" : {
+                                "schema" : {
+                                    "$ref" : "#/components/schemas/imsx_StatusInfoDType"
+                                }
+                            }
+                        }
+                    },
+                    "429" : {
+                        "description" : "The server is receiving too many requests i.e. 'server_busy'. Retry at a later time. This would be accompanied by the 'codeMajor/severity' values of 'failure/error'. ",
+                        "content" : {
+                            "application/json" : {
+                                "schema" : {
+                                    "$ref" : "#/components/schemas/imsx_StatusInfoDType"
+                                }
+                            }
+                        }
+                    },
+                    "500" : {
+                        "description" : "This code should be used only if there is catastrophic error and there is not a more appropriate code i.e. 'internal_server_error'. This would be accompanied by the 'codeMajor/severity' values of 'failure/error'. ",
+                        "content" : {
+                            "application/json" : {
+                                "schema" : {
+                                    "$ref" : "#/components/schemas/imsx_StatusInfoDType"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/educations" : {
+            "get" : {
+                "operationId" : "getAllEducations",
+                "summary" : "The REST read request message for the getAllEducations() API call.",
+                "tags" : [ "EducationsManagement" ],
+                "description" : "...not supplied...",
+                "parameters" : [
+                    {
+                        "name" : "limit",
+                        "in" : "query",
+                        "description" : "To define the download segmentation value i.e. the maximum number of records to be contained in the response.",
+                        "required" : false,
+                        "schema" : {
+                            "default" : 100,
+                            "minimum" : 1
+                        },
+                        "style" : "form",
+                        "allowEmptyValue" : false
+                    },
+                    {
+                        "name" : "offset",
+                        "in" : "query",
+                        "description" : "The number of the first record to be supplied in the segmented response message.",
+                        "required" : false,
+                        "schema" : {
+                            "default" : 0,
+                            "minimum" : 0
+                        },
+                        "style" : "form",
+                        "allowEmptyValue" : false
+                    },
+                    {
+                        "name" : "sort",
+                        "in" : "query",
+                        "description" : "Identifies the sort criteria to be used for the records in the response message. Use with the orderBy parameter. The sort order should follow the [UNICODE, 16] standard.",
+                        "required" : false,
+                        "schema" : {
+                        },
+                        "style" : "form",
+                        "allowEmptyValue" : false
+                    },
+                    {
+                        "name" : "orderBy",
+                        "in" : "query",
+                        "description" : "The form of ordering for response to the sorted request i.e. ascending (asc) or descending (desc). The sort order should follow the [UNICODE, 16] standard.",
+                        "required" : false,
+                        "schema" : {
+                        },
+                        "style" : "form",
+                        "allowEmptyValue" : false
+                    },
+                    {
+                        "name" : "filter",
+                        "in" : "query",
+                        "description" : "The filtering rules to be applied when identifying the records to be supplied in the response message. The sort order should follow the [UNICODE, 16] standard.",
+                        "required" : false,
+                        "schema" : {
+                        },
+                        "style" : "form",
+                        "allowEmptyValue" : false
+                    },
+                    {
+                        "name" : "fields",
+                        "in" : "query",
+                        "description" : "To identify the range of fields that should be supplied in the response message.",
+                        "required" : false,
+                        "schema" : {
+                            "type" : "array",
+                            "items" : {
+                                "type" : "string"
+                            }
+                        },
+                        "style" : "form",
+                        "allowEmptyValue" : false
+                    }
+                ],
+                "responses" : {
+                    "default" : {
+                        "description" : "This is the default error response when no other appropriate code is available.  This would be accompanied by the 'codeMajor/severity' values of 'failure/error'. ",
+                        "content" : {
+                            "application/json" : {
+                                "schema" : {
+                                    "$ref" : "#/components/schemas/imsx_StatusInfoDType"
+                                }
+                            }
+                        }
+                    },
+                    "200" : {
+                        "description" : "The request was successfully completed and a collection has been returned. This would be accompanied by the 'codeMajor/severity' values of 'success/status' and for a REST binding a HTTP code of '200'.",
+                        "content" : {
+                            "application/json" : {
+                                "schema" : {
+                                    "$ref" : "#/components/schemas/EducationSetDType"
+                                }
+                            }
+                        }
+                    },
+                    "400" : {
+                        "description" : "Either an invalid selection field or invalid filter selection was supplied and data filtering on the selection criteria was not possible i.e. 'invalid_selection_field' or  'invalid_filter_field' respectively. This is accompanied by the 'codeMajor/severity' values of 'failure/error'. ",
+                        "content" : {
+                            "application/json" : {
+                                "schema" : {
+                                    "$ref" : "#/components/schemas/imsx_StatusInfoDType"
+                                }
+                            }
+                        }
+                    },
+                    "401" : {
+                        "description" : "The request was not correctly authorised i.e. 'unauthorisedrequest'. This would be accompanied by the 'codeMajor/severity' values of 'failure/error'. ",
+                        "content" : {
+                            "application/json" : {
+                                "schema" : {
+                                    "$ref" : "#/components/schemas/imsx_StatusInfoDType"
+                                }
+                            }
+                        }
+                    },
+                    "403" : {
+                        "description" : "This is used to indicate that the server can be reached and process the request but refuses to take any further action i.e. 'forbidden'. This would be accompanied by the 'codeMajor/severity' values of 'failure/error'. ",
+                        "content" : {
+                            "application/json" : {
+                                "schema" : {
+                                    "$ref" : "#/components/schemas/imsx_StatusInfoDType"
+                                }
+                            }
+                        }
+                    },
+                    "422" : {
+                        "description" : "This error condition may occur if a JSON request body contains well-formed (i.e. syntactically correct), but semantically erroneous, JSON instructions. This would be accompanied by the 'codeMajor/severity' values of 'failure/error'. ",
+                        "content" : {
+                            "application/json" : {
+                                "schema" : {
+                                    "$ref" : "#/components/schemas/imsx_StatusInfoDType"
+                                }
+                            }
+                        }
+                    },
+                    "429" : {
+                        "description" : "The server is receiving too many requests i.e. 'server_busy'. Retry at a later time. This would be accompanied by the 'codeMajor/severity' values of 'failure/error'. ",
+                        "content" : {
+                            "application/json" : {
+                                "schema" : {
+                                    "$ref" : "#/components/schemas/imsx_StatusInfoDType"
+                                }
+                            }
+                        }
+                    },
+                    "500" : {
+                        "description" : "This code should be used only if there is catastrophic error and there is not a more appropriate code i.e. 'internal_server_error'. This would be accompanied by the 'codeMajor/severity' values of 'failure/error'. ",
+                        "content" : {
+                            "application/json" : {
+                                "schema" : {
+                                    "$ref" : "#/components/schemas/imsx_StatusInfoDType"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/educations/{sourcedId}" : {
+            "get" : {
+                "operationId" : "getEducation",
+                "summary" : "The REST read request message for the getEducation() API call.",
+                "tags" : [ "EducationsManagement" ],
+                "description" : "...not supplied...",
+                "parameters" : [
+                    {
+                        "name" : "sourcedId",
+                        "in" : "path",
+                        "description" : "...tbd...",
+                        "required" : true,
+                        "schema" : {
+                            "type" : "string"
+                        },
+                        "style" : "simple"
+                    },
+                    {
+                        "name" : "fields",
+                        "in" : "query",
+                        "description" : "To identify the range of fields that should be supplied in the response message.",
+                        "required" : false,
+                        "schema" : {
+                            "type" : "array",
+                            "items" : {
+                                "type" : "string"
+                            }
+                        },
+                        "style" : "form",
+                        "allowEmptyValue" : false
+                    }
+                ],
+                "responses" : {
+                    "default" : {
+                        "description" : "This is the default error response when no other appropriate code is available.  This would be accompanied by the 'codeMajor/severity' values of 'failure/error'. ",
+                        "content" : {
+                            "application/json" : {
+                                "schema" : {
+                                    "$ref" : "#/components/schemas/imsx_StatusInfoDType"
+                                }
+                            }
+                        }
+                    },
+                    "200" : {
+                        "description" : "The request was successfully completed and a record has been returned. This would be accompanied by the 'codeMajor/severity' values of 'success/status' and for a REST binding a HTTP code of '200'.",
+                        "content" : {
+                            "application/json" : {
+                                "schema" : {
+                                    "$ref" : "#/components/schemas/SingleEducationDType"
+                                }
+                            }
+                        }
+                    },
+                    "400" : {
+                        "description" : "Either an invalid selection field or invalid filter selection was supplied and data filtering on the selection criteria was not possible i.e. 'invalid_selection_field' or  'invalid_filter_field' respectively. This is accompanied by the 'codeMajor/severity' values of 'failure/error'. ",
+                        "content" : {
+                            "application/json" : {
+                                "schema" : {
+                                    "$ref" : "#/components/schemas/imsx_StatusInfoDType"
+                                }
+                            }
+                        }
+                    },
+                    "401" : {
+                        "description" : "The request was not correctly authorised i.e. 'unauthorisedrequest'. This would be accompanied by the 'codeMajor/severity' values of 'failure/error'. ",
+                        "content" : {
+                            "application/json" : {
+                                "schema" : {
+                                    "$ref" : "#/components/schemas/imsx_StatusInfoDType"
+                                }
+                            }
+                        }
+                    },
+                    "403" : {
+                        "description" : "This is used to indicate that the server can be reached and process the request but refuses to take any further action i.e. 'forbidden'. This would be accompanied by the 'codeMajor/severity' values of 'failure/error'. ",
+                        "content" : {
+                            "application/json" : {
+                                "schema" : {
+                                    "$ref" : "#/components/schemas/imsx_StatusInfoDType"
+                                }
+                            }
+                        }
+                    },
+                    "404" : {
+                        "description" : "Either the supplied identifier is unknown in the Service Provider and so the object could not be changed or an invalid GUID has been supplied. This would be accompanied by the 'codeMajor/severity' values of 'failure/error'. The statement 'Unknown Object' should also be presented. ",
+                        "content" : {
+                            "application/json" : {
+                                "schema" : {
+                                    "$ref" : "#/components/schemas/imsx_StatusInfoDType"
+                                }
+                            }
+                        }
+                    },
+                    "422" : {
+                        "description" : "This error condition may occur if a JSON request body contains well-formed (i.e. syntactically correct), but semantically erroneous, JSON instructions. This would be accompanied by the 'codeMajor/severity' values of 'failure/error'. ",
+                        "content" : {
+                            "application/json" : {
+                                "schema" : {
+                                    "$ref" : "#/components/schemas/imsx_StatusInfoDType"
+                                }
+                            }
+                        }
+                    },
+                    "429" : {
+                        "description" : "The server is receiving too many requests i.e. 'server_busy'. Retry at a later time. This would be accompanied by the 'codeMajor/severity' values of 'failure/error'. ",
+                        "content" : {
+                            "application/json" : {
+                                "schema" : {
+                                    "$ref" : "#/components/schemas/imsx_StatusInfoDType"
+                                }
+                            }
+                        }
+                    },
+                    "500" : {
+                        "description" : "This code should be used only if there is catastrophic error and there is not a more appropriate code i.e. 'internal_server_error'. This would be accompanied by the 'codeMajor/severity' values of 'failure/error'. ",
+                        "content" : {
+                            "application/json" : {
+                                "schema" : {
+                                    "$ref" : "#/components/schemas/imsx_StatusInfoDType"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete" : {
+                "operationId" : "deleteEducation",
+                "summary" : "The REST delete request message for the deleteEducation() API call.",
+                "tags" : [ "EducationsManagement" ],
+                "description" : "...not supplied...",
+                "parameters" : [
+                    {
+                        "name" : "sourcedId",
+                        "in" : "path",
+                        "description" : "...tbd...",
+                        "required" : true,
+                        "schema" : {
+                            "type" : "string"
+                        },
+                        "style" : "simple"
+                    }
+                ],
+                "responses" : {
+                    "default" : {
+                        "description" : "This is the default error response when no other appropriate code is available.  This would be accompanied by the 'codeMajor/severity' values of 'failure/error'. ",
+                        "content" : {
+                            "application/json" : {
+                                "schema" : {
+                                    "$ref" : "#/components/schemas/imsx_StatusInfoDType"
+                                }
+                            }
+                        }
+                    },
+                    "204" : {
+                        "description" : "...tbd (Response description)..."
+                    },
+                    "400" : {
+                        "description" : "Either an invalid selection field or invalid filter selection was supplied and data filtering on the selection criteria was not possible i.e. 'invalid_selection_field' or  'invalid_filter_field' respectively. This is accompanied by the 'codeMajor/severity' values of 'failure/error'. ",
+                        "content" : {
+                            "application/json" : {
+                                "schema" : {
+                                    "$ref" : "#/components/schemas/imsx_StatusInfoDType"
+                                }
+                            }
+                        }
+                    },
+                    "401" : {
+                        "description" : "The request was not correctly authorised i.e. 'unauthorisedrequest'. This would be accompanied by the 'codeMajor/severity' values of 'failure/error'. ",
+                        "content" : {
+                            "application/json" : {
+                                "schema" : {
+                                    "$ref" : "#/components/schemas/imsx_StatusInfoDType"
+                                }
+                            }
+                        }
+                    },
+                    "403" : {
+                        "description" : "This is used to indicate that the server can be reached and process the request but refuses to take any further action i.e. 'forbidden'. This would be accompanied by the 'codeMajor/severity' values of 'failure/error'. ",
+                        "content" : {
+                            "application/json" : {
+                                "schema" : {
+                                    "$ref" : "#/components/schemas/imsx_StatusInfoDType"
+                                }
+                            }
+                        }
+                    },
+                    "404" : {
+                        "description" : "Either the supplied identifier is unknown in the Service Provider and so the object could not be changed or an invalid GUID has been supplied. This would be accompanied by the 'codeMajor/severity' values of 'failure/error'. The statement 'Unknown Object' should also be presented. ",
+                        "content" : {
+                            "application/json" : {
+                                "schema" : {
+                                    "$ref" : "#/components/schemas/imsx_StatusInfoDType"
+                                }
+                            }
+                        }
+                    },
+                    "422" : {
+                        "description" : "This error condition may occur if a JSON request body contains well-formed (i.e. syntactically correct), but semantically erroneous, JSON instructions. This would be accompanied by the 'codeMajor/severity' values of 'failure/error'. ",
+                        "content" : {
+                            "application/json" : {
+                                "schema" : {
+                                    "$ref" : "#/components/schemas/imsx_StatusInfoDType"
+                                }
+                            }
+                        }
+                    },
+                    "429" : {
+                        "description" : "The server is receiving too many requests i.e. 'server_busy'. Retry at a later time. This would be accompanied by the 'codeMajor/severity' values of 'failure/error'. ",
+                        "content" : {
+                            "application/json" : {
+                                "schema" : {
+                                    "$ref" : "#/components/schemas/imsx_StatusInfoDType"
+                                }
+                            }
+                        }
+                    },
+                    "500" : {
+                        "description" : "This code should be used only if there is catastrophic error and there is not a more appropriate code i.e. 'internal_server_error'. This would be accompanied by the 'codeMajor/severity' values of 'failure/error'. ",
+                        "content" : {
+                            "application/json" : {
+                                "schema" : {
+                                    "$ref" : "#/components/schemas/imsx_StatusInfoDType"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "put" : {
+                "operationId" : "putEducation",
+                "summary" : "The REST create request message for the putEducation() API call.",
+                "tags" : [ "EducationsManagement" ],
+                "description" : "...not supplied...",
+                "parameters" : [
+                    {
+                        "name" : "sourcedId",
+                        "in" : "path",
+                        "description" : "...tbd...",
+                        "required" : true,
+                        "schema" : {
+                            "type" : "string"
+                        },
+                        "style" : "simple"
+                    }
+                ],
+                "requestBody" : {
+                    "description" : "...tbd...",
+                    "content" : {
+                        "application/json" : {
+                            "schema" : {
+                                "$ref" : "#/components/schemas/SingleEducationDType"
+                            }
+                        }
+                    },
+                    "required" : true
+                },
+                "responses" : {
+                    "default" : {
+                        "description" : "This is the default error response when no other appropriate code is available.  This would be accompanied by the 'codeMajor/severity' values of 'failure/error'. ",
+                        "content" : {
+                            "application/json" : {
+                                "schema" : {
+                                    "$ref" : "#/components/schemas/imsx_StatusInfoDType"
+                                }
+                            }
+                        }
+                    },
+                    "201" : {
+                        "description" : "...tbd (Response description)...",
+                        "content" : {
+                            "application/json" : {
+                                "schema" : {
+                                    "$ref" : "#/components/schemas/imsx_StatusInfoDType"
+                                }
+                            }
+                        }
+                    },
+                    "400" : {
+                        "description" : "Either an invalid selection field or invalid filter selection was supplied and data filtering on the selection criteria was not possible i.e. 'invalid_selection_field' or  'invalid_filter_field' respectively. This is accompanied by the 'codeMajor/severity' values of 'failure/error'. ",
+                        "content" : {
+                            "application/json" : {
+                                "schema" : {
+                                    "$ref" : "#/components/schemas/imsx_StatusInfoDType"
+                                }
+                            }
+                        }
+                    },
+                    "401" : {
+                        "description" : "The request was not correctly authorised i.e. 'unauthorisedrequest'. This would be accompanied by the 'codeMajor/severity' values of 'failure/error'. ",
+                        "content" : {
+                            "application/json" : {
+                                "schema" : {
+                                    "$ref" : "#/components/schemas/imsx_StatusInfoDType"
+                                }
+                            }
+                        }
+                    },
+                    "403" : {
+                        "description" : "This is used to indicate that the server can be reached and process the request but refuses to take any further action i.e. 'forbidden'. This would be accompanied by the 'codeMajor/severity' values of 'failure/error'. ",
+                        "content" : {
+                            "application/json" : {
+                                "schema" : {
+                                    "$ref" : "#/components/schemas/imsx_StatusInfoDType"
+                                }
+                            }
+                        }
+                    },
+                    "422" : {
+                        "description" : "This error condition may occur if a JSON request body contains well-formed (i.e. syntactically correct), but semantically erroneous, JSON instructions. This would be accompanied by the 'codeMajor/severity' values of 'failure/error'. ",
+                        "content" : {
+                            "application/json" : {
+                                "schema" : {
+                                    "$ref" : "#/components/schemas/imsx_StatusInfoDType"
+                                }
+                            }
+                        }
+                    },
+                    "429" : {
+                        "description" : "The server is receiving too many requests i.e. 'server_busy'. Retry at a later time. This would be accompanied by the 'codeMajor/severity' values of 'failure/error'. ",
+                        "content" : {
+                            "application/json" : {
+                                "schema" : {
+                                    "$ref" : "#/components/schemas/imsx_StatusInfoDType"
+                                }
+                            }
+                        }
+                    },
+                    "500" : {
+                        "description" : "This code should be used only if there is catastrophic error and there is not a more appropriate code i.e. 'internal_server_error'. This would be accompanied by the 'codeMajor/severity' values of 'failure/error'. ",
+                        "content" : {
+                            "application/json" : {
+                                "schema" : {
+                                    "$ref" : "#/components/schemas/imsx_StatusInfoDType"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/offeringAssociations" : {
+            "get" : {
+                "operationId" : "getAllOfferingAssociations",
+                "summary" : "The REST read request message for the getAllOfferingAssociations() API call.",
+                "tags" : [ "OfferingAssociationsManagement" ],
+                "description" : "...not supplied...",
+                "parameters" : [
+                    {
+                        "name" : "limit",
+                        "in" : "query",
+                        "description" : "To define the download segmentation value i.e. the maximum number of records to be contained in the response.",
+                        "required" : false,
+                        "schema" : {
+                            "default" : 100,
+                            "minimum" : 1
+                        },
+                        "style" : "form",
+                        "allowEmptyValue" : false
+                    },
+                    {
+                        "name" : "offset",
+                        "in" : "query",
+                        "description" : "The number of the first record to be supplied in the segmented response message.",
+                        "required" : false,
+                        "schema" : {
+                            "default" : 0,
+                            "minimum" : 0
+                        },
+                        "style" : "form",
+                        "allowEmptyValue" : false
+                    },
+                    {
+                        "name" : "sort",
+                        "in" : "query",
+                        "description" : "Identifies the sort criteria to be used for the records in the response message. Use with the orderBy parameter. The sort order should follow the [UNICODE, 16] standard.",
+                        "required" : false,
+                        "schema" : {
+                        },
+                        "style" : "form",
+                        "allowEmptyValue" : false
+                    },
+                    {
+                        "name" : "orderBy",
+                        "in" : "query",
+                        "description" : "The form of ordering for response to the sorted request i.e. ascending (asc) or descending (desc). The sort order should follow the [UNICODE, 16] standard.",
+                        "required" : false,
+                        "schema" : {
+                        },
+                        "style" : "form",
+                        "allowEmptyValue" : false
+                    },
+                    {
+                        "name" : "filter",
+                        "in" : "query",
+                        "description" : "The filtering rules to be applied when identifying the records to be supplied in the response message. The sort order should follow the [UNICODE, 16] standard.",
+                        "required" : false,
+                        "schema" : {
+                        },
+                        "style" : "form",
+                        "allowEmptyValue" : false
+                    },
+                    {
+                        "name" : "fields",
+                        "in" : "query",
+                        "description" : "To identify the range of fields that should be supplied in the response message.",
+                        "required" : false,
+                        "schema" : {
+                            "type" : "array",
+                            "items" : {
+                                "type" : "string"
+                            }
+                        },
+                        "style" : "form",
+                        "allowEmptyValue" : false
+                    }
+                ],
+                "responses" : {
+                    "default" : {
+                        "description" : "This is the default error response when no other appropriate code is available.  This would be accompanied by the 'codeMajor/severity' values of 'failure/error'. ",
+                        "content" : {
+                            "application/json" : {
+                                "schema" : {
+                                    "$ref" : "#/components/schemas/imsx_StatusInfoDType"
+                                }
+                            }
+                        }
+                    },
+                    "200" : {
+                        "description" : "The request was successfully completed and a collection has been returned. This would be accompanied by the 'codeMajor/severity' values of 'success/status' and for a REST binding a HTTP code of '200'.",
+                        "content" : {
+                            "application/json" : {
+                                "schema" : {
+                                    "$ref" : "#/components/schemas/OfferingAssociationSetDType"
+                                }
+                            }
+                        }
+                    },
+                    "400" : {
+                        "description" : "Either an invalid selection field or invalid filter selection was supplied and data filtering on the selection criteria was not possible i.e. 'invalid_selection_field' or  'invalid_filter_field' respectively. This is accompanied by the 'codeMajor/severity' values of 'failure/error'. ",
+                        "content" : {
+                            "application/json" : {
+                                "schema" : {
+                                    "$ref" : "#/components/schemas/imsx_StatusInfoDType"
+                                }
+                            }
+                        }
+                    },
+                    "401" : {
+                        "description" : "The request was not correctly authorised i.e. 'unauthorisedrequest'. This would be accompanied by the 'codeMajor/severity' values of 'failure/error'. ",
+                        "content" : {
+                            "application/json" : {
+                                "schema" : {
+                                    "$ref" : "#/components/schemas/imsx_StatusInfoDType"
+                                }
+                            }
+                        }
+                    },
+                    "403" : {
+                        "description" : "This is used to indicate that the server can be reached and process the request but refuses to take any further action i.e. 'forbidden'. This would be accompanied by the 'codeMajor/severity' values of 'failure/error'. ",
+                        "content" : {
+                            "application/json" : {
+                                "schema" : {
+                                    "$ref" : "#/components/schemas/imsx_StatusInfoDType"
+                                }
+                            }
+                        }
+                    },
+                    "429" : {
+                        "description" : "The server is receiving too many requests i.e. 'server_busy'. Retry at a later time. This would be accompanied by the 'codeMajor/severity' values of 'failure/error'. ",
+                        "content" : {
+                            "application/json" : {
+                                "schema" : {
+                                    "$ref" : "#/components/schemas/imsx_StatusInfoDType"
+                                }
+                            }
+                        }
+                    },
+                    "500" : {
+                        "description" : "This code should be used only if there is catastrophic error and there is not a more appropriate code i.e. 'internal_server_error'. This would be accompanied by the 'codeMajor/severity' values of 'failure/error'. ",
+                        "content" : {
+                            "application/json" : {
+                                "schema" : {
+                                    "$ref" : "#/components/schemas/imsx_StatusInfoDType"
+                                }
+                            }
+                        }
+                    },
+                    "422" : {
+                        "description" : "This error condition may occur if a JSON request body contains well-formed (i.e. syntactically correct), but semantically erroneous, JSON instructions. This would be accompanied by the 'codeMajor/severity' values of 'failure/error'. ",
+                        "content" : {
+                            "application/json" : {
+                                "schema" : {
+                                    "$ref" : "#/components/schemas/imsx_StatusInfoDType"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/offeringAssociations/{sourcedId}" : {
+            "get" : {
+                "operationId" : "getOfferingAssociation",
+                "summary" : "The REST read request message for the getOfferingAssociation() API call.",
+                "tags" : [ "OfferingAssociationsManagement" ],
+                "description" : "...not supplied...",
+                "parameters" : [
+                    {
+                        "name" : "sourcedId",
+                        "in" : "path",
+                        "description" : "...tbd...",
+                        "required" : true,
+                        "schema" : {
+                            "type" : "string"
+                        },
+                        "style" : "simple"
+                    },
+                    {
+                        "name" : "fields",
+                        "in" : "query",
+                        "description" : "To identify the range of fields that should be supplied in the response message.",
+                        "required" : false,
+                        "schema" : {
+                            "type" : "array",
+                            "items" : {
+                                "type" : "string"
+                            }
+                        },
+                        "style" : "form",
+                        "allowEmptyValue" : false
+                    }
+                ],
+                "responses" : {
+                    "default" : {
+                        "description" : "This is the default error response when no other appropriate code is available.  This would be accompanied by the 'codeMajor/severity' values of 'failure/error'. ",
+                        "content" : {
+                            "application/json" : {
+                                "schema" : {
+                                    "$ref" : "#/components/schemas/imsx_StatusInfoDType"
+                                }
+                            }
+                        }
+                    },
+                    "200" : {
+                        "description" : "The request was successfully completed and a record has been returned. This would be accompanied by the 'codeMajor/severity' values of 'success/status' and for a REST binding a HTTP code of '200'.",
+                        "content" : {
+                            "application/json" : {
+                                "schema" : {
+                                    "$ref" : "#/components/schemas/SingleOfferingAssociationDType"
+                                }
+                            }
+                        }
+                    },
+                    "400" : {
+                        "description" : "Either an invalid selection field or invalid filter selection was supplied and data filtering on the selection criteria was not possible i.e. 'invalid_selection_field' or  'invalid_filter_field' respectively. This is accompanied by the 'codeMajor/severity' values of 'failure/error'. ",
+                        "content" : {
+                            "application/json" : {
+                                "schema" : {
+                                    "$ref" : "#/components/schemas/imsx_StatusInfoDType"
+                                }
+                            }
+                        }
+                    },
+                    "401" : {
+                        "description" : "The request was not correctly authorised i.e. 'unauthorisedrequest'. This would be accompanied by the 'codeMajor/severity' values of 'failure/error'. ",
+                        "content" : {
+                            "application/json" : {
+                                "schema" : {
+                                    "$ref" : "#/components/schemas/imsx_StatusInfoDType"
+                                }
+                            }
+                        }
+                    },
+                    "403" : {
+                        "description" : "This is used to indicate that the server can be reached and process the request but refuses to take any further action i.e. 'forbidden'. This would be accompanied by the 'codeMajor/severity' values of 'failure/error'. ",
+                        "content" : {
+                            "application/json" : {
+                                "schema" : {
+                                    "$ref" : "#/components/schemas/imsx_StatusInfoDType"
+                                }
+                            }
+                        }
+                    },
+                    "429" : {
+                        "description" : "The server is receiving too many requests i.e. 'server_busy'. Retry at a later time. This would be accompanied by the 'codeMajor/severity' values of 'failure/error'. ",
+                        "content" : {
+                            "application/json" : {
+                                "schema" : {
+                                    "$ref" : "#/components/schemas/imsx_StatusInfoDType"
+                                }
+                            }
+                        }
+                    },
+                    "500" : {
+                        "description" : "This code should be used only if there is catastrophic error and there is not a more appropriate code i.e. 'internal_server_error'. This would be accompanied by the 'codeMajor/severity' values of 'failure/error'. ",
+                        "content" : {
+                            "application/json" : {
+                                "schema" : {
+                                    "$ref" : "#/components/schemas/imsx_StatusInfoDType"
+                                }
+                            }
+                        }
+                    },
+                    "404" : {
+                        "description" : "Either the supplied identifier is unknown in the Service Provider and so the object could not be changed or an invalid GUID has been supplied. This would be accompanied by the 'codeMajor/severity' values of 'failure/error'. The statement 'Unknown Object' should also be presented. ",
+                        "content" : {
+                            "application/json" : {
+                                "schema" : {
+                                    "$ref" : "#/components/schemas/imsx_StatusInfoDType"
+                                }
+                            }
+                        }
+                    },
+                    "422" : {
+                        "description" : "This error condition may occur if a JSON request body contains well-formed (i.e. syntactically correct), but semantically erroneous, JSON instructions. This would be accompanied by the 'codeMajor/severity' values of 'failure/error'. ",
+                        "content" : {
+                            "application/json" : {
+                                "schema" : {
+                                    "$ref" : "#/components/schemas/imsx_StatusInfoDType"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete" : {
+                "operationId" : "deleteOfferingAssociation",
+                "summary" : "The REST delete request message for the deleteOfferingAssociation() API call.",
+                "tags" : [ "OfferingAssociationsManagement" ],
+                "description" : "...not supplied...",
+                "parameters" : [
+                    {
+                        "name" : "sourcedId",
+                        "in" : "path",
+                        "description" : "...tbd...",
+                        "required" : true,
+                        "schema" : {
+                            "type" : "string"
+                        },
+                        "style" : "simple"
+                    }
+                ],
+                "responses" : {
+                    "default" : {
+                        "description" : "This is the default error response when no other appropriate code is available.  This would be accompanied by the 'codeMajor/severity' values of 'failure/error'. ",
+                        "content" : {
+                            "application/json" : {
+                                "schema" : {
+                                    "$ref" : "#/components/schemas/imsx_StatusInfoDType"
+                                }
+                            }
+                        }
+                    },
+                    "204" : {
+                        "description" : "...tbd (Response description)..."
+                    },
+                    "400" : {
+                        "description" : "Either an invalid selection field or invalid filter selection was supplied and data filtering on the selection criteria was not possible i.e. 'invalid_selection_field' or  'invalid_filter_field' respectively. This is accompanied by the 'codeMajor/severity' values of 'failure/error'. ",
+                        "content" : {
+                            "application/json" : {
+                                "schema" : {
+                                    "$ref" : "#/components/schemas/imsx_StatusInfoDType"
+                                }
+                            }
+                        }
+                    },
+                    "401" : {
+                        "description" : "The request was not correctly authorised i.e. 'unauthorisedrequest'. This would be accompanied by the 'codeMajor/severity' values of 'failure/error'. ",
+                        "content" : {
+                            "application/json" : {
+                                "schema" : {
+                                    "$ref" : "#/components/schemas/imsx_StatusInfoDType"
+                                }
+                            }
+                        }
+                    },
+                    "403" : {
+                        "description" : "This is used to indicate that the server can be reached and process the request but refuses to take any further action i.e. 'forbidden'. This would be accompanied by the 'codeMajor/severity' values of 'failure/error'. ",
+                        "content" : {
+                            "application/json" : {
+                                "schema" : {
+                                    "$ref" : "#/components/schemas/imsx_StatusInfoDType"
+                                }
+                            }
+                        }
+                    },
+                    "404" : {
+                        "description" : "Either the supplied identifier is unknown in the Service Provider and so the object could not be changed or an invalid GUID has been supplied. This would be accompanied by the 'codeMajor/severity' values of 'failure/error'. The statement 'Unknown Object' should also be presented. ",
+                        "content" : {
+                            "application/json" : {
+                                "schema" : {
+                                    "$ref" : "#/components/schemas/imsx_StatusInfoDType"
+                                }
+                            }
+                        }
+                    },
+                    "422" : {
+                        "description" : "This error condition may occur if a JSON request body contains well-formed (i.e. syntactically correct), but semantically erroneous, JSON instructions. This would be accompanied by the 'codeMajor/severity' values of 'failure/error'. ",
+                        "content" : {
+                            "application/json" : {
+                                "schema" : {
+                                    "$ref" : "#/components/schemas/imsx_StatusInfoDType"
+                                }
+                            }
+                        }
+                    },
+                    "429" : {
+                        "description" : "The server is receiving too many requests i.e. 'server_busy'. Retry at a later time. This would be accompanied by the 'codeMajor/severity' values of 'failure/error'. ",
+                        "content" : {
+                            "application/json" : {
+                                "schema" : {
+                                    "$ref" : "#/components/schemas/imsx_StatusInfoDType"
+                                }
+                            }
+                        }
+                    },
+                    "500" : {
+                        "description" : "This code should be used only if there is catastrophic error and there is not a more appropriate code i.e. 'internal_server_error'. This would be accompanied by the 'codeMajor/severity' values of 'failure/error'. ",
+                        "content" : {
+                            "application/json" : {
+                                "schema" : {
+                                    "$ref" : "#/components/schemas/imsx_StatusInfoDType"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "put" : {
+                "operationId" : "putOfferingAssociation",
+                "summary" : "The REST create request message for the putOfferingAssociation() API call.",
+                "tags" : [ "OfferingAssociationsManagement" ],
+                "description" : "...not supplied...",
+                "parameters" : [
+                    {
+                        "name" : "sourcedId",
+                        "in" : "path",
+                        "description" : "...tbd...",
+                        "required" : true,
+                        "schema" : {
+                            "type" : "string"
+                        },
+                        "style" : "simple"
+                    }
+                ],
+                "responses" : {
+                    "default" : {
+                        "description" : "This is the default error response when no other appropriate code is available.  This would be accompanied by the 'codeMajor/severity' values of 'failure/error'. ",
+                        "content" : {
+                            "application/json" : {
+                                "schema" : {
+                                    "$ref" : "#/components/schemas/imsx_StatusInfoDType"
+                                }
+                            }
+                        }
+                    },
+                    "201" : {
+                        "description" : "...tbd (Response description)...",
+                        "content" : {
+                            "application/json" : {
+                                "schema" : {
+                                    "$ref" : "#/components/schemas/imsx_StatusInfoDType"
+                                }
+                            }
+                        }
+                    },
+                    "400" : {
+                        "description" : "Either an invalid selection field or invalid filter selection was supplied and data filtering on the selection criteria was not possible i.e. 'invalid_selection_field' or  'invalid_filter_field' respectively. This is accompanied by the 'codeMajor/severity' values of 'failure/error'. ",
+                        "content" : {
+                            "application/json" : {
+                                "schema" : {
+                                    "$ref" : "#/components/schemas/imsx_StatusInfoDType"
+                                }
+                            }
+                        }
+                    },
+                    "401" : {
+                        "description" : "The request was not correctly authorised i.e. 'unauthorisedrequest'. This would be accompanied by the 'codeMajor/severity' values of 'failure/error'. ",
+                        "content" : {
+                            "application/json" : {
+                                "schema" : {
+                                    "$ref" : "#/components/schemas/imsx_StatusInfoDType"
+                                }
+                            }
+                        }
+                    },
+                    "403" : {
+                        "description" : "This is used to indicate that the server can be reached and process the request but refuses to take any further action i.e. 'forbidden'. This would be accompanied by the 'codeMajor/severity' values of 'failure/error'. ",
+                        "content" : {
+                            "application/json" : {
+                                "schema" : {
+                                    "$ref" : "#/components/schemas/imsx_StatusInfoDType"
+                                }
+                            }
+                        }
+                    },
+                    "422" : {
+                        "description" : "This error condition may occur if a JSON request body contains well-formed (i.e. syntactically correct), but semantically erroneous, JSON instructions. This would be accompanied by the 'codeMajor/severity' values of 'failure/error'. ",
+                        "content" : {
+                            "application/json" : {
+                                "schema" : {
+                                    "$ref" : "#/components/schemas/imsx_StatusInfoDType"
+                                }
+                            }
+                        }
+                    },
+                    "429" : {
+                        "description" : "The server is receiving too many requests i.e. 'server_busy'. Retry at a later time. This would be accompanied by the 'codeMajor/severity' values of 'failure/error'. ",
+                        "content" : {
+                            "application/json" : {
+                                "schema" : {
+                                    "$ref" : "#/components/schemas/imsx_StatusInfoDType"
+                                }
+                            }
+                        }
+                    },
+                    "500" : {
+                        "description" : "This code should be used only if there is catastrophic error and there is not a more appropriate code i.e. 'internal_server_error'. This would be accompanied by the 'codeMajor/severity' values of 'failure/error'. ",
+                        "content" : {
+                            "application/json" : {
+                                "schema" : {
+                                    "$ref" : "#/components/schemas/imsx_StatusInfoDType"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/persons" : {
+            "get" : {
+                "operationId" : "getAllPersons",
+                "summary" : "The REST read request message for the getAllPersons() API call.",
+                "tags" : [ "PersonsManagement" ],
+                "description" : "...not supplied...",
+                "parameters" : [
+                    {
+                        "name" : "limit",
+                        "in" : "query",
+                        "description" : "To define the download segmentation value i.e. the maximum number of records to be contained in the response.",
+                        "required" : false,
+                        "schema" : {
+                            "default" : 100,
+                            "minimum" : 1
+                        },
+                        "style" : "form",
+                        "allowEmptyValue" : false
+                    },
+                    {
+                        "name" : "offset",
+                        "in" : "query",
+                        "description" : "The number of the first record to be supplied in the segmented response message.",
+                        "required" : false,
+                        "schema" : {
+                            "default" : 0,
+                            "minimum" : 0
+                        },
+                        "style" : "form",
+                        "allowEmptyValue" : false
+                    },
+                    {
+                        "name" : "sort",
+                        "in" : "query",
+                        "description" : "Identifies the sort criteria to be used for the records in the response message. Use with the orderBy parameter. The sort order should follow the [UNICODE, 16] standard.",
+                        "required" : false,
+                        "schema" : {
+                        },
+                        "style" : "form",
+                        "allowEmptyValue" : false
+                    },
+                    {
+                        "name" : "orderBy",
+                        "in" : "query",
+                        "description" : "The form of ordering for response to the sorted request i.e. ascending (asc) or descending (desc). The sort order should follow the [UNICODE, 16] standard.",
+                        "required" : false,
+                        "schema" : {
+                        },
+                        "style" : "form",
+                        "allowEmptyValue" : false
+                    },
+                    {
+                        "name" : "filter",
+                        "in" : "query",
+                        "description" : "The filtering rules to be applied when identifying the records to be supplied in the response message. The sort order should follow the [UNICODE, 16] standard.",
+                        "required" : false,
+                        "schema" : {
+                        },
+                        "style" : "form",
+                        "allowEmptyValue" : false
+                    },
+                    {
+                        "name" : "fields",
+                        "in" : "query",
+                        "description" : "To identify the range of fields that should be supplied in the response message.",
+                        "required" : false,
+                        "schema" : {
+                            "type" : "array",
+                            "items" : {
+                                "type" : "string"
+                            }
+                        },
+                        "style" : "form",
+                        "allowEmptyValue" : false
+                    }
+                ],
+                "responses" : {
+                    "default" : {
+                        "description" : "This is the default error response when no other appropriate code is available.  This would be accompanied by the 'codeMajor/severity' values of 'failure/error'. ",
+                        "content" : {
+                            "application/json" : {
+                                "schema" : {
+                                    "$ref" : "#/components/schemas/imsx_StatusInfoDType"
+                                }
+                            }
+                        }
+                    },
+                    "200" : {
+                        "description" : "The request was successfully completed and a collection has been returned. This would be accompanied by the 'codeMajor/severity' values of 'success/status' and for a REST binding a HTTP code of '200'.",
+                        "content" : {
+                            "application/json" : {
+                                "schema" : {
+                                    "$ref" : "#/components/schemas/PersonSetDType"
+                                }
+                            }
+                        }
+                    },
+                    "400" : {
+                        "description" : "Either an invalid selection field or invalid filter selection was supplied and data filtering on the selection criteria was not possible i.e. 'invalid_selection_field' or  'invalid_filter_field' respectively. This is accompanied by the 'codeMajor/severity' values of 'failure/error'. ",
+                        "content" : {
+                            "application/json" : {
+                                "schema" : {
+                                    "$ref" : "#/components/schemas/imsx_StatusInfoDType"
+                                }
+                            }
+                        }
+                    },
+                    "401" : {
+                        "description" : "The request was not correctly authorised i.e. 'unauthorisedrequest'. This would be accompanied by the 'codeMajor/severity' values of 'failure/error'. ",
+                        "content" : {
+                            "application/json" : {
+                                "schema" : {
+                                    "$ref" : "#/components/schemas/imsx_StatusInfoDType"
+                                }
+                            }
+                        }
+                    },
+                    "403" : {
+                        "description" : "This is used to indicate that the server can be reached and process the request but refuses to take any further action i.e. 'forbidden'. This would be accompanied by the 'codeMajor/severity' values of 'failure/error'. ",
+                        "content" : {
+                            "application/json" : {
+                                "schema" : {
+                                    "$ref" : "#/components/schemas/imsx_StatusInfoDType"
+                                }
+                            }
+                        }
+                    },
+                    "422" : {
+                        "description" : "This error condition may occur if a JSON request body contains well-formed (i.e. syntactically correct), but semantically erroneous, JSON instructions. This would be accompanied by the 'codeMajor/severity' values of 'failure/error'. ",
+                        "content" : {
+                            "application/json" : {
+                                "schema" : {
+                                    "$ref" : "#/components/schemas/imsx_StatusInfoDType"
+                                }
+                            }
+                        }
+                    },
+                    "429" : {
+                        "description" : "The server is receiving too many requests i.e. 'server_busy'. Retry at a later time. This would be accompanied by the 'codeMajor/severity' values of 'failure/error'. ",
+                        "content" : {
+                            "application/json" : {
+                                "schema" : {
+                                    "$ref" : "#/components/schemas/imsx_StatusInfoDType"
+                                }
+                            }
+                        }
+                    },
+                    "500" : {
+                        "description" : "This code should be used only if there is catastrophic error and there is not a more appropriate code i.e. 'internal_server_error'. This would be accompanied by the 'codeMajor/severity' values of 'failure/error'. ",
+                        "content" : {
+                            "application/json" : {
+                                "schema" : {
+                                    "$ref" : "#/components/schemas/imsx_StatusInfoDType"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/persons/{sourcedId}" : {
+            "get" : {
+                "operationId" : "getPerson",
+                "summary" : "The REST read request message for the getPerson() API call.",
+                "tags" : [ "PersonsManagement" ],
+                "description" : "...not supplied...",
+                "parameters" : [
+                    {
+                        "name" : "sourcedId",
+                        "in" : "path",
+                        "description" : "...tbd...",
+                        "required" : true,
+                        "schema" : {
+                            "type" : "string"
+                        },
+                        "style" : "simple"
+                    },
+                    {
+                        "name" : "fields",
+                        "in" : "query",
+                        "description" : "To identify the range of fields that should be supplied in the response message.",
+                        "required" : false,
+                        "schema" : {
+                            "type" : "array",
+                            "items" : {
+                                "type" : "string"
+                            }
+                        },
+                        "style" : "form",
+                        "allowEmptyValue" : false
+                    }
+                ],
+                "responses" : {
+                    "default" : {
+                        "description" : "This is the default error response when no other appropriate code is available.  This would be accompanied by the 'codeMajor/severity' values of 'failure/error'. ",
+                        "content" : {
+                            "application/json" : {
+                                "schema" : {
+                                    "$ref" : "#/components/schemas/imsx_StatusInfoDType"
+                                }
+                            }
+                        }
+                    },
+                    "200" : {
+                        "description" : "The request was successfully completed and a record has been returned. This would be accompanied by the 'codeMajor/severity' values of 'success/status' and for a REST binding a HTTP code of '200'.",
+                        "content" : {
+                            "application/json" : {
+                                "schema" : {
+                                    "$ref" : "#/components/schemas/SinglePersonDType"
+                                }
+                            }
+                        }
+                    },
+                    "400" : {
+                        "description" : "Either an invalid selection field or invalid filter selection was supplied and data filtering on the selection criteria was not possible i.e. 'invalid_selection_field' or  'invalid_filter_field' respectively. This is accompanied by the 'codeMajor/severity' values of 'failure/error'. ",
+                        "content" : {
+                            "application/json" : {
+                                "schema" : {
+                                    "$ref" : "#/components/schemas/imsx_StatusInfoDType"
+                                }
+                            }
+                        }
+                    },
+                    "401" : {
+                        "description" : "The request was not correctly authorised i.e. 'unauthorisedrequest'. This would be accompanied by the 'codeMajor/severity' values of 'failure/error'. ",
+                        "content" : {
+                            "application/json" : {
+                                "schema" : {
+                                    "$ref" : "#/components/schemas/imsx_StatusInfoDType"
+                                }
+                            }
+                        }
+                    },
+                    "403" : {
+                        "description" : "This is used to indicate that the server can be reached and process the request but refuses to take any further action i.e. 'forbidden'. This would be accompanied by the 'codeMajor/severity' values of 'failure/error'. ",
+                        "content" : {
+                            "application/json" : {
+                                "schema" : {
+                                    "$ref" : "#/components/schemas/imsx_StatusInfoDType"
+                                }
+                            }
+                        }
+                    },
+                    "404" : {
+                        "description" : "Either the supplied identifier is unknown in the Service Provider and so the object could not be changed or an invalid GUID has been supplied. This would be accompanied by the 'codeMajor/severity' values of 'failure/error'. The statement 'Unknown Object' should also be presented. ",
+                        "content" : {
+                            "application/json" : {
+                                "schema" : {
+                                    "$ref" : "#/components/schemas/imsx_StatusInfoDType"
+                                }
+                            }
+                        }
+                    },
+                    "422" : {
+                        "description" : "This error condition may occur if a JSON request body contains well-formed (i.e. syntactically correct), but semantically erroneous, JSON instructions. This would be accompanied by the 'codeMajor/severity' values of 'failure/error'. ",
+                        "content" : {
+                            "application/json" : {
+                                "schema" : {
+                                    "$ref" : "#/components/schemas/imsx_StatusInfoDType"
+                                }
+                            }
+                        }
+                    },
+                    "429" : {
+                        "description" : "The server is receiving too many requests i.e. 'server_busy'. Retry at a later time. This would be accompanied by the 'codeMajor/severity' values of 'failure/error'. ",
+                        "content" : {
+                            "application/json" : {
+                                "schema" : {
+                                    "$ref" : "#/components/schemas/imsx_StatusInfoDType"
+                                }
+                            }
+                        }
+                    },
+                    "500" : {
+                        "description" : "This code should be used only if there is catastrophic error and there is not a more appropriate code i.e. 'internal_server_error'. This would be accompanied by the 'codeMajor/severity' values of 'failure/error'. ",
+                        "content" : {
+                            "application/json" : {
+                                "schema" : {
+                                    "$ref" : "#/components/schemas/imsx_StatusInfoDType"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete" : {
+                "operationId" : "deletePerson",
+                "summary" : "The REST delete request message for the deletePerson() API call.",
+                "tags" : [ "PersonsManagement" ],
+                "description" : "...not supplied...",
+                "parameters" : [
+                    {
+                        "name" : "sourcedId",
+                        "in" : "path",
+                        "description" : "...tbd...",
+                        "required" : true,
+                        "schema" : {
+                            "type" : "string"
+                        },
+                        "style" : "simple"
+                    }
+                ],
+                "responses" : {
+                    "default" : {
+                        "description" : "This is the default error response when no other appropriate code is available.  This would be accompanied by the 'codeMajor/severity' values of 'failure/error'. ",
+                        "content" : {
+                            "application/json" : {
+                                "schema" : {
+                                    "$ref" : "#/components/schemas/imsx_StatusInfoDType"
+                                }
+                            }
+                        }
+                    },
+                    "204" : {
+                        "description" : "...tbd (Response description)..."
+                    },
+                    "400" : {
+                        "description" : "Either an invalid selection field or invalid filter selection was supplied and data filtering on the selection criteria was not possible i.e. 'invalid_selection_field' or  'invalid_filter_field' respectively. This is accompanied by the 'codeMajor/severity' values of 'failure/error'. ",
+                        "content" : {
+                            "application/json" : {
+                                "schema" : {
+                                    "$ref" : "#/components/schemas/imsx_StatusInfoDType"
+                                }
+                            }
+                        }
+                    },
+                    "401" : {
+                        "description" : "The request was not correctly authorised i.e. 'unauthorisedrequest'. This would be accompanied by the 'codeMajor/severity' values of 'failure/error'. ",
+                        "content" : {
+                            "application/json" : {
+                                "schema" : {
+                                    "$ref" : "#/components/schemas/imsx_StatusInfoDType"
+                                }
+                            }
+                        }
+                    },
+                    "403" : {
+                        "description" : "This is used to indicate that the server can be reached and process the request but refuses to take any further action i.e. 'forbidden'. This would be accompanied by the 'codeMajor/severity' values of 'failure/error'. ",
+                        "content" : {
+                            "application/json" : {
+                                "schema" : {
+                                    "$ref" : "#/components/schemas/imsx_StatusInfoDType"
+                                }
+                            }
+                        }
+                    },
+                    "404" : {
+                        "description" : "Either the supplied identifier is unknown in the Service Provider and so the object could not be changed or an invalid GUID has been supplied. This would be accompanied by the 'codeMajor/severity' values of 'failure/error'. The statement 'Unknown Object' should also be presented. ",
+                        "content" : {
+                            "application/json" : {
+                                "schema" : {
+                                    "$ref" : "#/components/schemas/imsx_StatusInfoDType"
+                                }
+                            }
+                        }
+                    },
+                    "422" : {
+                        "description" : "This error condition may occur if a JSON request body contains well-formed (i.e. syntactically correct), but semantically erroneous, JSON instructions. This would be accompanied by the 'codeMajor/severity' values of 'failure/error'. ",
+                        "content" : {
+                            "application/json" : {
+                                "schema" : {
+                                    "$ref" : "#/components/schemas/imsx_StatusInfoDType"
+                                }
+                            }
+                        }
+                    },
+                    "429" : {
+                        "description" : "The server is receiving too many requests i.e. 'server_busy'. Retry at a later time. This would be accompanied by the 'codeMajor/severity' values of 'failure/error'. ",
+                        "content" : {
+                            "application/json" : {
+                                "schema" : {
+                                    "$ref" : "#/components/schemas/imsx_StatusInfoDType"
+                                }
+                            }
+                        }
+                    },
+                    "500" : {
+                        "description" : "This code should be used only if there is catastrophic error and there is not a more appropriate code i.e. 'internal_server_error'. This would be accompanied by the 'codeMajor/severity' values of 'failure/error'. ",
+                        "content" : {
+                            "application/json" : {
+                                "schema" : {
+                                    "$ref" : "#/components/schemas/imsx_StatusInfoDType"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "put" : {
+                "operationId" : "putPerson",
+                "summary" : "The REST create request message for the putPerson() API call.",
+                "tags" : [ "PersonsManagement" ],
+                "description" : "...not supplied...",
+                "parameters" : [
+                    {
+                        "name" : "sourcedId",
+                        "in" : "path",
+                        "description" : "...tbd...",
+                        "required" : true,
+                        "schema" : {
+                            "type" : "string"
+                        },
+                        "style" : "simple"
+                    }
+                ],
+                "requestBody" : {
+                    "description" : "...tbd...",
+                    "content" : {
+                        "application/json" : {
+                            "schema" : {
+                                "$ref" : "#/components/schemas/SinglePersonDType"
+                            }
+                        }
+                    },
+                    "required" : true
+                },
+                "responses" : {
+                    "default" : {
+                        "description" : "This is the default error response when no other appropriate code is available.  This would be accompanied by the 'codeMajor/severity' values of 'failure/error'. ",
+                        "content" : {
+                            "application/json" : {
+                                "schema" : {
+                                    "$ref" : "#/components/schemas/imsx_StatusInfoDType"
+                                }
+                            }
+                        }
+                    },
+                    "201" : {
+                        "description" : "...tbd (Response description)...",
+                        "content" : {
+                            "application/json" : {
+                                "schema" : {
+                                    "$ref" : "#/components/schemas/imsx_StatusInfoDType"
+                                }
+                            }
+                        }
+                    },
+                    "400" : {
+                        "description" : "Either an invalid selection field or invalid filter selection was supplied and data filtering on the selection criteria was not possible i.e. 'invalid_selection_field' or  'invalid_filter_field' respectively. This is accompanied by the 'codeMajor/severity' values of 'failure/error'. ",
+                        "content" : {
+                            "application/json" : {
+                                "schema" : {
+                                    "$ref" : "#/components/schemas/imsx_StatusInfoDType"
+                                }
+                            }
+                        }
+                    },
+                    "401" : {
+                        "description" : "The request was not correctly authorised i.e. 'unauthorisedrequest'. This would be accompanied by the 'codeMajor/severity' values of 'failure/error'. ",
+                        "content" : {
+                            "application/json" : {
+                                "schema" : {
+                                    "$ref" : "#/components/schemas/imsx_StatusInfoDType"
+                                }
+                            }
+                        }
+                    },
+                    "403" : {
+                        "description" : "This is used to indicate that the server can be reached and process the request but refuses to take any further action i.e. 'forbidden'. This would be accompanied by the 'codeMajor/severity' values of 'failure/error'. ",
+                        "content" : {
+                            "application/json" : {
+                                "schema" : {
+                                    "$ref" : "#/components/schemas/imsx_StatusInfoDType"
+                                }
+                            }
+                        }
+                    },
+                    "422" : {
+                        "description" : "This error condition may occur if a JSON request body contains well-formed (i.e. syntactically correct), but semantically erroneous, JSON instructions. This would be accompanied by the 'codeMajor/severity' values of 'failure/error'. ",
+                        "content" : {
+                            "application/json" : {
+                                "schema" : {
+                                    "$ref" : "#/components/schemas/imsx_StatusInfoDType"
+                                }
+                            }
+                        }
+                    },
+                    "429" : {
+                        "description" : "The server is receiving too many requests i.e. 'server_busy'. Retry at a later time. This would be accompanied by the 'codeMajor/severity' values of 'failure/error'. ",
+                        "content" : {
+                            "application/json" : {
+                                "schema" : {
+                                    "$ref" : "#/components/schemas/imsx_StatusInfoDType"
+                                }
+                            }
+                        }
+                    },
+                    "500" : {
+                        "description" : "This code should be used only if there is catastrophic error and there is not a more appropriate code i.e. 'internal_server_error'. This would be accompanied by the 'codeMajor/severity' values of 'failure/error'. ",
+                        "content" : {
+                            "application/json" : {
+                                "schema" : {
+                                    "$ref" : "#/components/schemas/imsx_StatusInfoDType"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "components" : {
+        "schemas" : {
+            "EducationDType" : {
+                "description" : "...tbd (Class description)...",
+                "type" : "object",
+                "properties" : {
+                    "sourcedId" : {
+                        "description" : "Model Primitive Datatype = String. ...tbd (DerivedType property description)...",
+                        "type" : "string"
+                    },
+                    "status" : {
+                        "description" : "...tbd (Enumeration description)...",
+                        "type" : "string",
+                        "enum" : [ "active","tobedeleted" ]
+                    },
+                    "dateLastModified" : {
+                        "description" : "Model Primitive Datatype = DateTime. ...tbd (PrimitiveType description)...",
+                        "type" : "string",
+                        "format" : "date-time"
+                    },
+                    "metadata" : {
+                        "$ref" : "#/components/schemas/MetadataDType"
+                    },
+                    "title" : {
+                        "description" : "Model Primitive Datatype = NormalizedString. ...tbd (PrimitiveType description)...",
+                        "type" : "string"
+                    },
+                    "code" : {
+                        "description" : "Model Primitive Datatype = NormalizedString. ...tbd (PrimitiveType description)...",
+                        "type" : "string"
+                    },
+                    "organization" : {
+                        "$ref" : "#/components/schemas/GUIDRefDType"
+                    },
+                    "level" : {
+                        "description" : "...tbd (Enumeration description)...",
+                        "type" : "string",
+                        "enum" : [ "graduate","undergraduate" ]
+                    },
+                    "meetings" : {
+                        "description" : "...tbd (ComplexType property description)...",
+                        "type" : "array",
+                        "minItems" : 0,
+                        "items" : {
+                            "$ref" : "#/components/schemas/MeetingsDType"
+                        }
+                    },
+                    "creditType" : {
+                        "description" : "...tbd (Enumeration description)...",
+                        "type" : "string",
+                        "enum" : [ "credit","non-credit","ects" ]
+                    },
+                    "description" : {
+                        "description" : "Model Primitive Datatype = String. ...tbd (PrimitiveType description)...",
+                        "type" : "string"
+                    },
+                    "courseType" : {
+                        "description" : "Model Primitive Datatype = NormalizedString. ...tbd (PrimitiveType description)...",
+                        "type" : "string"
+                    },
+                    "educationType" : {
+                        "description" : "Model Primitive Datatype = NormalizedString. ...tbd (PrimitiveType description)...",
+                        "type" : "string"
+                    },
+                    "gradingScheme" : {
+                        "description" : "Model Primitive Datatype = NormalizedString. ...tbd (PrimitiveType description)...",
+                        "type" : "string"
+                    }
+                },
+                "required" : [ "sourcedId","status","dateLastModified","title","code","organization","educationType" ],
+                "additionalProperties" : false
+            },
+            "EducationOfferingDType" : {
+                "description" : "...tbd (Class description)...",
+                "type" : "object",
+                "properties" : {
+                    "sourcedId" : {
+                        "description" : "Model Primitive Datatype = String. ...tbd (DerivedType property description)...",
+                        "type" : "string"
+                    },
+                    "status" : {
+                        "description" : "...tbd (Enumeration description)...",
+                        "type" : "string",
+                        "enum" : [ "active","tobedeleted" ]
+                    },
+                    "dateLastModified" : {
+                        "description" : "Model Primitive Datatype = DateTime. ...tbd (PrimitiveType description)...",
+                        "type" : "string",
+                        "format" : "date-time"
+                    },
+                    "metadata" : {
+                        "$ref" : "#/components/schemas/MetadataDType"
+                    },
+                    "title" : {
+                        "description" : "Model Primitive Datatype = NormalizedString. ...tbd (PrimitiveType description)...",
+                        "type" : "string"
+                    },
+                    "offeringCode" : {
+                        "description" : "Model Primitive Datatype = NormalizedString. ...tbd (PrimitiveType description)...",
+                        "type" : "string"
+                    },
+                    "location" : {
+                        "description" : "...tbd (ComplexType property description)...",
+                        "type" : "array",
+                        "minItems" : 0,
+                        "items" : {
+                            "$ref" : "#/components/schemas/GUIDRefDType"
+                        }
+                    },
+                    "org" : {
+                        "$ref" : "#/components/schemas/GUIDRefDType"
+                    },
+                    "academicSession" : {
+                        "$ref" : "#/components/schemas/GUIDRefDType"
+                    },
+                    "education" : {
+                        "$ref" : "#/components/schemas/GUIDRefDType"
+                    },
+                    "registrationStatus" : {
+                        "description" : "...tbd (Enumeration description)...",
+                        "type" : "string",
+                        "enum" : [ "open","closed","pending","waitlist" ]
+                    },
+                    "startDate" : {
+                        "description" : "Model Primitive Datatype = DateTime. ...tbd (PrimitiveType description)...",
+                        "type" : "string",
+                        "format" : "date-time"
+                    },
+                    "endDate" : {
+                        "description" : "Model Primitive Datatype = DateTime. ...tbd (PrimitiveType description)...",
+                        "type" : "string",
+                        "format" : "date-time"
+                    },
+                    "offeringFormat" : {
+                        "description" : "...tbd (Enumeration description)...",
+                        "type" : "string",
+                        "enum" : [ "online","blended","onground" ]
+                    }
+                },
+                "required" : [ "sourcedId","status","dateLastModified","title","offeringCode","org","academicSession","education","registrationStatus","offeringFormat" ],
+                "additionalProperties" : false
+            },
+            "EducationOfferingSetDType" : {
+                "description" : "...tbd (Class description)...",
+                "type" : "object",
+                "properties" : {
+                    "educationOfferingSet" : {
+                        "description" : "...tbd (ComplexType property description)...",
+                        "type" : "array",
+                        "minItems" : 0,
+                        "items" : {
+                            "$ref" : "#/components/schemas/EducationOfferingDType"
+                        }
+                    }
+                },
+                "additionalProperties" : false
+            },
+            "EducationSetDType" : {
+                "description" : "...tbd (Class description)...",
+                "type" : "object",
+                "properties" : {
+                    "educations" : {
+                        "description" : "...tbd (ComplexType property description)...",
+                        "type" : "array",
+                        "minItems" : 0,
+                        "items" : {
+                            "$ref" : "#/components/schemas/EducationDType"
+                        }
+                    }
+                },
+                "additionalProperties" : false
+            },
+            "MeetingsDType" : {
+                "description" : "...tbd (Class description)...",
+                "type" : "object",
+                "properties" : {
+                    "format" : {
+                        "description" : "Model Primitive Datatype = NormalizedString. ...tbd (PrimitiveType description)...",
+                        "type" : "string"
+                    },
+                    "startDate" : {
+                        "description" : "Model Primitive Datatype = DateTime. ...tbd (PrimitiveType description)...",
+                        "type" : "string",
+                        "format" : "date-time"
+                    },
+                    "endDate" : {
+                        "description" : "Model Primitive Datatype = DateTime. ...tbd (PrimitiveType description)...",
+                        "type" : "string",
+                        "format" : "date-time"
+                    }
+                },
+                "required" : [ "format","startDate","endDate" ],
+                "additionalProperties" : false
+            },
+            "OfferingAssociationDType" : {
+                "description" : "...tbd (Class description)...",
+                "type" : "object",
+                "properties" : {
+                    "sourcedId" : {
+                        "description" : "Model Primitive Datatype = String. ...tbd (DerivedType property description)...",
+                        "type" : "string"
+                    },
+                    "status" : {
+                        "description" : "...tbd (Enumeration description)...",
+                        "type" : "string",
+                        "enum" : [ "active","tobedeleted" ]
+                    },
+                    "dateLastModified" : {
+                        "description" : "Model Primitive Datatype = DateTime. ...tbd (PrimitiveType description)...",
+                        "type" : "string",
+                        "format" : "date-time"
+                    },
+                    "metadata" : {
+                        "$ref" : "#/components/schemas/MetadataDType"
+                    },
+                    "personId" : {
+                        "$ref" : "#/components/schemas/GUIDRefDType"
+                    },
+                    "educationOfferingId" : {
+                        "$ref" : "#/components/schemas/GUIDRefDType"
+                    },
+                    "role" : {
+                        "description" : "...tbd (Enumeration description)...",
+                        "type" : "string",
+                        "enum" : [ "administrator","aide","guardian","parent","proctor","relative","student","teacher" ]
+                    },
+                    "beginDate" : {
+                        "description" : "Model Primitive Datatype = DateTime. ...tbd (PrimitiveType description)...",
+                        "type" : "string",
+                        "format" : "date-time"
+                    },
+                    "endDate" : {
+                        "description" : "Model Primitive Datatype = DateTime. ...tbd (PrimitiveType description)...",
+                        "type" : "string",
+                        "format" : "date-time"
+                    },
+                    "associationType" : {
+                        "description" : "...tbd (Enumeration description)...",
+                        "type" : "string",
+                        "enum" : [ "enrollment","assigned" ]
+                    }
+                },
+                "required" : [ "sourcedId","status","dateLastModified","personId","educationOfferingId","role" ],
+                "additionalProperties" : false
+            },
+            "OfferingAssociationSetDType" : {
+                "description" : "...tbd (Class description)...",
+                "type" : "object",
+                "properties" : {
+                    "offeringAssociationSet" : {
+                        "description" : "...tbd (ComplexType property description)...",
+                        "type" : "array",
+                        "minItems" : 0,
+                        "items" : {
+                            "$ref" : "#/components/schemas/OfferingAssociationDType"
+                        }
+                    }
+                },
+                "additionalProperties" : false
+            },
+            "SingleEducationDType" : {
+                "description" : "...tbd (Class description)...",
+                "type" : "object",
+                "properties" : {
+                    "education" : {
+                        "$ref" : "#/components/schemas/EducationDType"
+                    }
+                },
+                "required" : [ "education" ],
+                "additionalProperties" : false
+            },
+            "SingleEducationOfferingDType" : {
+                "description" : "...tbd (Class description)...",
+                "type" : "object",
+                "properties" : {
+                    "educationOffering" : {
+                        "$ref" : "#/components/schemas/EducationOfferingDType"
+                    }
+                },
+                "required" : [ "educationOffering" ],
+                "additionalProperties" : false
+            },
+            "SingleOfferingAssociationDType" : {
+                "description" : "...tbd (Class description)...",
+                "type" : "object",
+                "properties" : {
+                    "offeringAssociation" : {
+                        "$ref" : "#/components/schemas/OfferingAssociationDType"
+                    }
+                },
+                "required" : [ "offeringAssociation" ],
+                "additionalProperties" : false
+            },
+            "AddressDType" : {
+                "description" : "...tbd (Class description)...",
+                "type" : "object",
+                "properties" : {
+                    "addressType" : {
+                        "description" : "...tbd (Enumeration description)...",
+                        "type" : "string",
+                        "enum" : [ "CAMPUS_PRIMARY","MAILING_PRIMARY","PRIVATE_PRIMARY","...tbc..." ]
+                    },
+                    "language" : {
+                        "description" : "Model Primitive Datatype = NormalizedString. ...tbd (DerivedType property description)...",
+                        "type" : "string"
+                    },
+                    "addressPart" : {
+                        "description" : "...tbd (ComplexType property description)...",
+                        "type" : "array",
+                        "minItems" : 1,
+                        "items" : {
+                            "$ref" : "#/components/schemas/AddressPartDType"
+                        }
+                    }
+                },
+                "required" : [ "addressType","language","addressPart" ],
+                "additionalProperties" : false
+            },
+            "AddressPartDType" : {
+                "description" : "...tbd (Class description)...",
+                "type" : "object",
+                "properties" : {
+                    "addressPartTypeEnum" : {
+                        "description" : "...tbd (Enumeration description)...",
+                        "type" : "string",
+                        "enum" : [ "POBOX","POSTCODE","NON_FIELDED_STREET_ADDRESS1","...tbc..." ]
+                    },
+                    "address" : {
+                        "description" : "Model Primitive Datatype = NormalizedString. ...tbd (PrimitiveType description)...",
+                        "type" : "string"
+                    }
+                },
+                "required" : [ "addressPartTypeEnum","address" ],
+                "additionalProperties" : false
+            },
+            "AgentDType" : {
+                "description" : "...tbd (Class description)...",
+                "type" : "object",
+                "properties" : {
+                    "agentType" : {
+                        "description" : "...tbd (Enumeration description)...",
+                        "type" : "string",
+                        "enum" : [ "GUARDIAN","PARENT","...tbc..." ]
+                    },
+                    "language" : {
+                        "description" : "Model Primitive Datatype = NormalizedString. ...tbd (DerivedType property description)...",
+                        "type" : "string"
+                    },
+                    "agentId" : {
+                        "$ref" : "#/components/schemas/GUIDRefDType"
+                    },
+                    "agentDomain" : {
+                        "description" : "Model Primitive Datatype = NormalizedString. ...tbd (PrimitiveType description)...",
+                        "type" : "string"
+                    },
+                    "description" : {
+                        "description" : "Model Primitive Datatype = String. ...tbd (PrimitiveType description)...",
+                        "type" : "string"
+                    }
+                },
+                "required" : [ "agentType","language","agentId","agentDomain" ],
+                "additionalProperties" : false
+            },
+            "ContactInfoDType" : {
+                "description" : "...tbd (Class description)...",
+                "type" : "object",
+                "properties" : {
+                    "contactInfoType" : {
+                        "description" : "...tbd (Enumeration description)...",
+                        "type" : "string",
+                        "enum" : [ "TELPHONE","TELPHONE_HOME","TELPHONE_PRIMARY","TELPHONE_WORK","TELPHONE_HOME_PRIMARY","TELPHONE_HOME_SECONDARY","TELPHONE_SECONDARY","...tbc..." ]
+                    },
+                    "contactInfo" : {
+                        "description" : "Model Primitive Datatype = NormalizedString. ...tbd (PrimitiveType description)...",
+                        "type" : "string"
+                    }
+                },
+                "required" : [ "contactInfoType","contactInfo" ],
+                "additionalProperties" : false
+            },
+            "CredentialsDType" : {
+                "description" : "...tbd (Class description)...",
+                "type" : "object",
+                "properties" : {
+                    "type" : {
+                        "description" : "Model Primitive Datatype = NormalizedString. ...tbd (PrimitiveType description)...",
+                        "type" : "string"
+                    },
+                    "username" : {
+                        "description" : "Model Primitive Datatype = NormalizedString. ...tbd (PrimitiveType description)...",
+                        "type" : "string"
+                    }
+                },
+                "required" : [ "type","username" ],
+                "additionalProperties" : false
+            },
+            "DemographicsDType" : {
+                "description" : "...tbd (Class description)...",
+                "type" : "object",
+                "properties" : {
+                    "dateOfBirth" : {
+                        "description" : "Model Primitive Datatype = Date. ...tbd (PrimitiveType description)...",
+                        "type" : "string",
+                        "format" : "date"
+                    },
+                    "sex" : {
+                        "$ref" : "#/components/schemas/LocalizedStringDType"
+                    },
+                    "countryOfBirth" : {
+                        "$ref" : "#/components/schemas/LocalizedStringDType"
+                    },
+                    "cityOfBirth" : {
+                        "$ref" : "#/components/schemas/LocalizedStringDType"
+                    }
+                },
+                "additionalProperties" : false
+            },
+            "FormattedNameDType" : {
+                "description" : "...tbd (Class description)...",
+                "type" : "object",
+                "properties" : {
+                    "formattedNameType" : {
+                        "description" : "...tbd (Enumeration description)...",
+                        "type" : "string",
+                        "enum" : [ "FULL","FORMER","PREFERRED","...tbc..." ]
+                    },
+                    "formattedName" : {
+                        "$ref" : "#/components/schemas/LocalizedStringDType"
+                    }
+                },
+                "required" : [ "formattedNameType","formattedName" ],
+                "additionalProperties" : false
+            },
+            "GUIDRefDType" : {
+                "description" : "The data-type for establishing a Globally Unique Identifier (GUID). This is the data-type used for a 'sourcedId'. There is no predefined structure for the GUID.",
+                "type" : "object",
+                "properties" : {
+                    "href" : {
+                        "description" : "Model Primitive Datatype = AnyURI. The URI for the type of object being referenced.",
+                        "type" : "string",
+                        "format" : "uri"
+                    },
+                    "sourcedId" : {
+                        "description" : "Model Primitive Datatype = String. The globally unique identifier of the object being referenced.",
+                        "type" : "string"
+                    },
+                    "type" : {
+                        "description" : "The type of object being referenced. This is an enumerated vocabulary.",
+                        "type" : "string",
+                        "enum" : [ "academicSession","education","educationOffering","location","organization","person" ]
+                    }
+                },
+                "required" : [ "href","sourcedId","type" ],
+                "additionalProperties" : false
+            },
+            "LanguageStringDType" : {
+                "description" : "...tbd (Class description)...",
+                "type" : "object",
+                "properties" : {
+                    "language" : {
+                        "description" : "Model Primitive Datatype = NormalizedString. ...tbd (PrimitiveType description)...",
+                        "type" : "string"
+                    },
+                    "string" : {
+                        "description" : "Model Primitive Datatype = String. ...tbd (PrimitiveType description)...",
+                        "type" : "string"
+                    }
+                },
+                "required" : [ "language","string" ],
+                "additionalProperties" : false
+            },
+            "LocalizedStringDType" : {
+                "description" : "...tbd (Class description)...",
+                "type" : "object",
+                "properties" : {
+                    "languageString" : {
+                        "description" : "...tbd (ComplexType property description)...",
+                        "type" : "array",
+                        "minItems" : 1,
+                        "items" : {
+                            "$ref" : "#/components/schemas/LanguageStringDType"
+                        }
+                    }
+                },
+                "required" : [ "languageString" ],
+                "additionalProperties" : false
+            },
+            "MetadataDType" : {
+                "description" : "This is the container for the data model extensions that may be assigned to the associated class of objects.",
+                "type" : "object",
+                "properties" : {
+
+                },
+                "additionalProperties" : true
+            },
+            "NameDType" : {
+                "description" : "...tbd (Class description)...",
+                "type" : "object",
+                "properties" : {
+                    "nameType" : {
+                        "description" : "...tbd (Enumeration description)...",
+                        "type" : "string",
+                        "enum" : [ "FULL","FORMER","PREFERRED","...tbc..." ]
+                    },
+                    "language" : {
+                        "description" : "Model Primitive Datatype = NormalizedString. ...tbd (DerivedType property description)...",
+                        "type" : "string"
+                    },
+                    "namePart" : {
+                        "description" : "...tbd (ComplexType property description)...",
+                        "type" : "array",
+                        "minItems" : 1,
+                        "items" : {
+                            "$ref" : "#/components/schemas/NamePartDType"
+                        }
+                    }
+                },
+                "required" : [ "nameType","language","namePart" ],
+                "additionalProperties" : false
+            },
+            "NamePartDType" : {
+                "description" : "...tbd (Class description)...",
+                "type" : "object",
+                "properties" : {
+                    "namePartType" : {
+                        "description" : "...tbd (Enumeration description)...",
+                        "type" : "string",
+                        "enum" : [ "FIRST","FAMILY","GIVEN","LAST","...tbc..." ]
+                    },
+                    "name" : {
+                        "description" : "Model Primitive Datatype = NormalizedString. ...tbd (PrimitiveType description)...",
+                        "type" : "string"
+                    }
+                },
+                "required" : [ "namePartType","name" ],
+                "additionalProperties" : false
+            },
+            "PersonDType" : {
+                "description" : "...tbd (Class description)...",
+                "type" : "object",
+                "properties" : {
+                    "sourcedId" : {
+                        "description" : "Model Primitive Datatype = String. All Objects MUST be identified by a Source Identifier. This is a GUID i.e. a unique system interoperability identifier for an object. This is the GUID that SYSTEMS will refer to when making API calls, or when needing to identify an object. For EDU-API the GUID MUST be a valid UUID.  It is RECOMMENDED that systems are able to map whichever local identifiers (e.g. database key fields) they use to the corresponding SourcedId. The sourcedId of an object is considered an addressable property of an entity and as such will not be treated as Personally Identifiable Information (PII) by certified products. Therefore, as a part of certification, vendors will be required to declare that they will notify customers via documentation or other formal and documented agreement that sourcedIds should never contain PII in general, but particularly users. This means that if a customer includes a student name in an enrollment.sourcedId, it will not fall to any certified product to protect the enrollment.sourcedId as PII, or even the userSourcedId field in the enrollment record.",
+                        "type" : "string"
+                    },
+                    "status" : {
+                        "description" : "All objects MUST BE either 'active' or 'tobedeleted'. Something which is flagged 'tobedeleted' is to be considered safe to delete. Systems can delete records that are flagged as such if they wish, but they are not under any compulsion to do so.",
+                        "type" : "string",
+                        "enum" : [ "ACTIVE","TOBEDELETED" ]
+                    },
+                    "dateLastModified" : {
+                        "description" : "Model Primitive Datatype = DateTime. All objects MUST be annotated with the dateTime upon which they were last modified. This enables requesters to query for just the latest objects. DateTimes MUST be expressed in W3C profile of [ISO 8601] and MUST contain the UTC timezone.",
+                        "type" : "string",
+                        "format" : "date-time"
+                    },
+                    "metadata" : {
+                        "$ref" : "#/components/schemas/MetadataDType"
+                    },
+                    "formattedName" : {
+                        "description" : "...tbd (ComplexType property description)...",
+                        "type" : "array",
+                        "minItems" : 1,
+                        "items" : {
+                            "$ref" : "#/components/schemas/FormattedNameDType"
+                        }
+                    },
+                    "name" : {
+                        "description" : "...tbd (ComplexType property description)...",
+                        "type" : "array",
+                        "minItems" : 1,
+                        "items" : {
+                            "$ref" : "#/components/schemas/NameDType"
+                        }
+                    },
+                    "address" : {
+                        "description" : "...tbd (ComplexType property description)...",
+                        "type" : "array",
+                        "minItems" : 0,
+                        "items" : {
+                            "$ref" : "#/components/schemas/AddressDType"
+                        }
+                    },
+                    "contactInfo" : {
+                        "description" : "...tbd (ComplexType property description)...",
+                        "type" : "array",
+                        "minItems" : 0,
+                        "items" : {
+                            "$ref" : "#/components/schemas/ContactInfoDType"
+                        }
+                    },
+                    "demographics" : {
+                        "$ref" : "#/components/schemas/DemographicsDType"
+                    },
+                    "role" : {
+                        "description" : "...tbd (ComplexType property description)...",
+                        "type" : "array",
+                        "minItems" : 0,
+                        "items" : {
+                            "$ref" : "#/components/schemas/RoleDType"
+                        }
+                    },
+                    "agent" : {
+                        "description" : "...tbd (ComplexType property description)...",
+                        "type" : "array",
+                        "minItems" : 0,
+                        "items" : {
+                            "$ref" : "#/components/schemas/AgentDType"
+                        }
+                    },
+                    "credentials" : {
+                        "description" : "...tbd (ComplexType property description)...",
+                        "type" : "array",
+                        "minItems" : 0,
+                        "items" : {
+                            "$ref" : "#/components/schemas/CredentialsDType"
+                        }
+                    }
+                },
+                "required" : [ "sourcedId","status","dateLastModified","formattedName","name" ],
+                "additionalProperties" : false
+            },
+            "PersonSetDType" : {
+                "description" : "...tbd (Class description)...",
+                "type" : "object",
+                "properties" : {
+                    "persons" : {
+                        "description" : "...tbd (ComplexType property description)...",
+                        "type" : "array",
+                        "minItems" : 0,
+                        "items" : {
+                            "$ref" : "#/components/schemas/PersonDType"
+                        }
+                    }
+                },
+                "additionalProperties" : false
+            },
+            "RoleDType" : {
+                "description" : "...tbd (Class description)...",
+                "type" : "object",
+                "properties" : {
+                    "roleType" : {
+                        "description" : "...tbd (Enumeration description)...",
+                        "type" : "string",
+                        "enum" : [ "PRIMARY","SECONDARY" ]
+                    },
+                    "role" : {
+                        "description" : "...tbd (Enumeration description)...",
+                        "type" : "string",
+                        "enum" : [ "ADMINISTRATOR","AIDE","GUARDIAN","PARENT","...tbc..." ]
+                    },
+                    "organization" : {
+                        "$ref" : "#/components/schemas/GUIDRefDType"
+                    }
+                },
+                "required" : [ "roleType","role","organization" ],
+                "additionalProperties" : false
+            },
+            "SinglePersonDType" : {
+                "description" : "...tbd (Class description)...",
+                "type" : "object",
+                "properties" : {
+                    "person" : {
+                        "$ref" : "#/components/schemas/PersonDType"
+                    }
+                },
+                "required" : [ "person" ],
+                "additionalProperties" : false
+            },
+            "imsx_CodeMinorDType" : {
+                "description" : "This is the container for the set of code minor status codes reported in the responses from the Service Provider.",
+                "type" : "object",
+                "properties" : {
+                    "imsx_codeMinorField" : {
+                        "description" : "Each reported code minor status code.",
+                        "type" : "array",
+                        "minItems" : 1,
+                        "items" : {
+                            "$ref" : "#/components/schemas/imsx_CodeMinorFieldDType"
+                        }
+                    }
+                },
+                "required" : [ "imsx_codeMinorField" ],
+                "additionalProperties" : false
+            },
+            "imsx_CodeMinorFieldDType" : {
+                "description" : "This is the container for a single code minor status code.",
+                "type" : "object",
+                "properties" : {
+                    "imsx_codeMinorFieldName" : {
+                        "description" : "Model Primitive Datatype = NormalizedString. This should contain the identity of the system that has produced the code minor status code report. In most cases this will be the target service provider denoted as 'TargetEndSystem'.",
+                        "type" : "string",
+                        "default" : "TargetEndSystem"
+                    },
+                    "imsx_codeMinorFieldValue" : {
+                        "description" : "The code minor status code (this is a value from the corresponding enumerated vocabulary).",
+                        "type" : "string",
+                        "enum" : [ "fullsuccess","invalid_filter_field","invalid_selection_field","invaliddata","unauthorisedrequest","forbidden","server_busy","unknownobject","internal_server_error" ]
+                    }
+                },
+                "required" : [ "imsx_codeMinorFieldName","imsx_codeMinorFieldValue" ],
+                "additionalProperties" : false
+            },
+            "imsx_StatusInfoDType" : {
+                "description" : "This is the container for the status code and associated information returned within the HTTP messages received from the Service Provider. For the OneRoster Rostering service this object will only be returned to provide information about a failed request i.e. it will NOT be in the payload for a successful request. See Appendix B for further information on the interpretation of the information contained within this class.",
+                "type" : "object",
+                "properties" : {
+                    "imsx_codeMajor" : {
+                        "description" : "The code major value (from the corresponding enumerated vocabulary). See Appendix B for further information on the interpretation of this set of codes. The permitted vocabulary for the values for the CodeMajor field.",
+                        "type" : "string",
+                        "enum" : [ "success","processing","failure","unsupported" ]
+                    },
+                    "imsx_severity" : {
+                        "description" : "The severity value (from the corresponding enumerated vocabulary). See Appendix B for further information on the interpretation of this set of codes.",
+                        "type" : "string",
+                        "enum" : [ "status","warning","error" ]
+                    },
+                    "imsx_description" : {
+                        "description" : "Model Primitive Datatype = String. A human readable description supplied by the entity creating the status code information.",
+                        "type" : "string"
+                    },
+                    "imsx_CodeMinor" : {
+                        "$ref" : "#/components/schemas/imsx_CodeMinorDType"
+                    }
+                },
+                "required" : [ "imsx_codeMajor","imsx_severity" ],
+                "additionalProperties" : false
+            }
+        }
+    }
+}

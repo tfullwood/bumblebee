@@ -1,0 +1,32 @@
+version: '3.1'
+
+services:
+  # Just running this locally for now
+  # bumblebee:
+  #   image: bumblebee
+  #   build: .
+  #   environment:
+  #     #Production should never be needed for this, its serving dummy data locally for megatron
+  #     NODE_ENV: development
+  #   ports:
+  #     - 3000:3000
+  mongo:
+    image: mongo
+    ports:
+      - ${MONGODB_PORT}:${MONGODB_PORT}
+    restart: always
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: ${MONGODB_USER}
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGODB_PASS}
+      #VIRTUAL_HOST: ${DB_HOST}
+  mongo-express:
+    image: mongo-express
+    restart: always
+    ports:
+      - "8081:8081"
+    environment:
+      ME_CONFIG_MONGODB_ADMINUSERNAME: ${MONGODB_USER}
+      ME_CONFIG_MONGODB_ADMINPASSWORD: ${MONGODB_PASS}
+      #VIRTUAL_HOST: bbmongoex.docker
+    links:
+      - mongo
