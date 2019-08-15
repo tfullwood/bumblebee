@@ -27,10 +27,10 @@ function getSections(req, res, next) {
                             metadata: {}, //no reason to store anything just returning a null val
                             title: section.title,
                             offeringCode: section.offeringCode,
-                            org: {
-                                href: `~/ims/eduapi/v1p0/org/${section.orgId}`,
-                                sourcedId: section.orgId,
-                                type: 'org'
+                            organization: {
+                                href: `~/ims/eduapi/v1p0/organization/${section.organizationId}`,
+                                sourcedId: section.organizationId,
+                                type: 'organization'
                             },
                             academicSession: {
                                 href: `~/ims/eduapi/v1p0/academicSession/${section.academicSessionId}`,
@@ -71,16 +71,15 @@ function getSection(req, res, next) {
         .then((section) => {
             return res.json({
                 educationOffering: {
-                    //TODO - map this out to eduapi spec
                     sourcedId: section._id,
                     status: section.status,
                     dateLastModified: section.dateLastModified,
                     metadata: {}, //no reason to store anything just returning a null val
                     title: section.title,
                     offeringCode: section.offeringCode,
-                    org: {
-                        href: `~/ims/eduapi/v1p0/org/${section.orgId}`,
-                        sourcedId: section.orgId,
+                    organization: {
+                        href: `~/ims/eduapi/v1p0/organization/${section.organizationId}`,
+                        sourcedId: section.organizationId,
                         type: 'org'
                     },
                     academicSession: {
@@ -134,7 +133,7 @@ function createSection(req, res, next) {
         title: req.body.title,
         offeringCode: req.body.offeringCode, //sis id
         educationId: ObjectId(),  //TODO - AFTER EDUCATION ENDPOINTS ARE SET, change this to (probably won't validate to begin) - req.body.educationId
-        orgId: ObjectId(),  //TODO - AFTER orgs endpoints are SET, change this to (probably won't validate to begin) - req.body.orgId
+        organizationId: ObjectId(),  //TODO - AFTER orgs endpoints are SET, change this to (probably won't validate to begin) - req.body.orgId
         academicSessionId: ObjectId(),  //TODO - AFTER academic sessions endpoints are SET, change this to (probably won't validate to begin) - req.body.academicSessionId
             //this is the term ^
         registrationStatus: req.body.registrationStatus || 'open',

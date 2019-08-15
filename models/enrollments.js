@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 const ObjectId = mongoose.Types.ObjectId;
 
-const SectionSchema = new Schema({
+const EnrollmentSchema = new Schema({
     status: {
         type: String,
         default: 'active'
@@ -11,54 +11,42 @@ const SectionSchema = new Schema({
         type: Date,
         default: Date.now
     },
-    title: {
-        type: String,
-        required: true
-    },
-    offeringCode: { //SIS id
-        type: String,
-        required: true
-    },
-    educationId: {
+    userId: {
         type: ObjectId,
         required: true
     },
-    organizationId: {
+    sectionId: {
         type: ObjectId,
         required: true
     },
-    academicSessionId: {
-        type: ObjectId,
-        required: true
-    },
-    registrationStatus: {
+    role: {
         type: String,
         required: true
     },
-    startDate: {
+    beginDate: {
         type: Date
     },
     endDate: {
         type: Date
     },
-    offeringFormat: {
+    associationType: {
         type: String,
-        required: true
+        default: 'enrollment'
     }
 });
 
-SectionSchema.statics = {
+EnrollmentSchema.statics = {
     get(id) {
         return this.findById(id)
-            .then((section) => {
-                if (!section) {
+            .then((enrollment) => {
+                if (!enrollment) {
                     return Promise.reject({
-                        message: 'Section not found',
+                        message: 'Enrollment not found',
                         status: 400
                     })
                 }
 
-                return section
+                return enrollment
             })
             .catch((e) => {
                 return Promise.reject({
@@ -72,8 +60,8 @@ SectionSchema.statics = {
         return this.find()
             .skip(Number(offset))
             .limit(Number(limit))
-            .then((sections) => {
-                return sections
+            .then((enrollments) => {
+                return enrollments
             })
             .catch((e) => {
                 return Promise.reject({
@@ -89,6 +77,6 @@ SectionSchema.statics = {
     } //end delete
 };
 
-const Section = mongoose.model('Section', SectionSchema);
+const Enrollment = mongoose.model('Enrollment', EnrollmentSchema);
 
-module.exports = { Section };
+module.exports = { Enrollment };

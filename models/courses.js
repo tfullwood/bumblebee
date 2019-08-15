@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 const ObjectId = mongoose.Types.ObjectId;
 
-const SectionSchema = new Schema({
+const CourseSchema = new Schema({
     status: {
         type: String,
         default: 'active'
@@ -15,50 +15,54 @@ const SectionSchema = new Schema({
         type: String,
         required: true
     },
-    offeringCode: { //SIS id
+    code: { //e.g. MATH101, ENG230
         type: String,
-        required: true
-    },
-    educationId: {
-        type: ObjectId,
         required: true
     },
     organizationId: {
         type: ObjectId,
         required: true
     },
-    academicSessionId: {
-        type: ObjectId,
-        required: true
-    },
-    registrationStatus: {
+    level: {
         type: String,
-        required: true
+        default: 'undergraduate'
     },
-    startDate: {
-        type: Date
-    },
-    endDate: {
-        type: Date
-    },
-    offeringFormat: {
+    // meetings : [{},{}]
+        //I don't need this for the hackathon
+        //If decided its necessary create another table for meetings and reference the course id
+    creditType: {
         type: String,
-        required: true
+        default: 'credit'
+    },
+    description: {
+        type: String
+    },
+    courseType: {
+        type: String,
+        default: 'course' //course, honors, lab, etc...
+    },
+    educationType: {
+        type: String,
+        default: 'course'
+    },
+    gradingScheme: {
+        type: String,
+        default: 'A:F'
     }
 });
 
-SectionSchema.statics = {
+CourseSchema.statics = {
     get(id) {
         return this.findById(id)
-            .then((section) => {
-                if (!section) {
+            .then((course) => {
+                if (!course) {
                     return Promise.reject({
-                        message: 'Section not found',
+                        message: 'Course not found',
                         status: 400
                     })
                 }
 
-                return section
+                return course
             })
             .catch((e) => {
                 return Promise.reject({
@@ -72,8 +76,8 @@ SectionSchema.statics = {
         return this.find()
             .skip(Number(offset))
             .limit(Number(limit))
-            .then((sections) => {
-                return sections
+            .then((courses) => {
+                return courses
             })
             .catch((e) => {
                 return Promise.reject({
@@ -89,6 +93,6 @@ SectionSchema.statics = {
     } //end delete
 };
 
-const Section = mongoose.model('Section', SectionSchema);
+const Course = mongoose.model('Course', CourseSchema);
 
-module.exports = { Section };
+module.exports = { Course };
