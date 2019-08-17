@@ -90,7 +90,24 @@ CourseSchema.statics = {
     delete(id) {
         //TODO - add later
         //No need for it right now
-    } //end delete
+    }, //end delete
+    dropAll() {
+        console.log('hit');
+        
+        return this.drop()
+            .then((doc) => {
+                console.log('success');
+                
+                return 'success'
+            })
+            .catch((e) => {
+                return Promise.reject({
+                    message: e.message || 'Internal server error',
+                    status: e.status || 500,
+                    stack: e.stack || ''
+                })
+            })
+    }
 };
 
 const Course = mongoose.model('Course', CourseSchema);

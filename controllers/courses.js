@@ -121,7 +121,8 @@ function createCourse(req, res, next) {
         description: req.body.description || undefined,
         courseType: req.body.courseType || undefined,
         educationType: req.body.educationType || undefined,
-        gradingScheme: req.body.gradingScheme || undefined
+        gradingScheme: req.body.gradingScheme || undefined,
+        _id: req.body._id || undefined
     });
 
     course.save()

@@ -132,14 +132,14 @@ function createSection(req, res, next) {
     var section = new Section({
         title: req.body.title,
         offeringCode: req.body.offeringCode, //sis id
-        educationId: ObjectId(),  //TODO - AFTER EDUCATION ENDPOINTS ARE SET, change this to (probably won't validate to begin) - req.body.educationId
-        organizationId: ObjectId(),  //TODO - AFTER orgs endpoints are SET, change this to (probably won't validate to begin) - req.body.orgId
-        academicSessionId: ObjectId(),  //TODO - AFTER academic sessions endpoints are SET, change this to (probably won't validate to begin) - req.body.academicSessionId
-            //this is the term ^
+        educationId: req.body.educationId || ObjectId(),
+        organizationId: req.body.organizationId || ObjectId(),
+        academicSessionId: req.body.academicSessionId || ObjectId(), //term
         registrationStatus: req.body.registrationStatus || 'open',
         startDate: req.body.startDate || undefined,
         endDate: req.body.endDate || undefined,
-        offeringFormat: req.body.offeringFormat || 'onground'
+        offeringFormat: req.body.offeringFormat || 'onground',
+        _id: req.body._id || undefined
     });
 
     section.save()

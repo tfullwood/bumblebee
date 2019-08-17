@@ -120,8 +120,8 @@ function createEnrollment(req, res, next) {
         //Probably wont actually do this for the hackathon
         //Note I don't check that the reference ids actually exist, e.g. no clue if a user/section actually exist for the enrollment
     var enrollment = new Enrollment({
-        userId: ObjectId(), //replace with this when ready -> req.body.userId,
-        sectionId: ObjectId(), //replace with this when ready -> req.body.sectionId,
+        userId: req.body.userId || ObjectId(), //the object ids here are just for testing - it'll throw errors when pushed to canvas
+        sectionId: req.body.sectionId || ObjectId(), //same ^^
         role: req.body.role,
         status: req.body.status || undefined,
         beginDate: req.body.beginDate || undefined,

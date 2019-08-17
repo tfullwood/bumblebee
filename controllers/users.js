@@ -69,10 +69,10 @@ function createUser(req, res, next) {
     var errors = [];
     
     if (!req.body.givenName) {
-        errors.push('Missing required field: firstName');
+        errors.push('Missing required field: givenName');
     }
     if (!req.body.surname) {
-        errors.push('Missing required field: lastName');
+        errors.push('Missing required field: surname');
     }
     if (!req.body.username) {
         errors.push('Missing required field: username')
@@ -96,7 +96,8 @@ function createUser(req, res, next) {
                 surname: req.body.surname
             }
         ],
-        username: req.body.username
+        username: req.body.username,
+        _id: req.body._id || undefined
     })
 
     user.save()
