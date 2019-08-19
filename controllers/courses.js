@@ -7,8 +7,8 @@ function getCourses(req, res, next) {
         //Validate data
             //Is limit & offset a num
     const params = [
-        req.body.limit || 100,
-        req.body.offset || 0,
+        req.query.limit || 100,
+        req.query.offset || 0,
         '', //sort
         '', //orderBy
         '', //filter

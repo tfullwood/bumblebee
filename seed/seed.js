@@ -17,7 +17,7 @@ writeCourses = async () => {
                     title: row[1],
                     _id: row[2]
                 });
-            }, 250);
+            }, 1500);
 
             console.log(`Writing Course: ${row[1]}`);
         })
@@ -40,7 +40,7 @@ writeSections = async () => {
                     academicSessionId: row[4], //term
                     _id: row[5] //sourcedId
                 });
-            }, 250);
+            }, 1500);
 
             console.log(`Writing Section: ${row[0]}`);
         })
@@ -61,7 +61,7 @@ writeUsers = async () => {
                     username: row[3], //school
                     _id: row[4] //sourcedId
                 })
-            }, 250);
+            }, 1500);
             
             console.log(`Writing User: ${row[1]} ${row[2]}`);
         })
@@ -81,7 +81,7 @@ writeEnrollments = async () => {
                     sectionId: row[1],
                     role: row[2]
                 })
-            }, 250);
+            }, 1500);
 
             console.log(`Writing Enrollment: user: ${row[0]} in section: ${row[1]}`);
         })
