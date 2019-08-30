@@ -5,7 +5,7 @@ const { User } = require('../models/users');
 function getUsers(req, res, next) {
     //TODO - add functionality for sort, orderBy, filter, and fields
         //Validate data
-            //Is limit & offset a num
+            //Is limit & offset an int
     const params = [
         req.query.limit || 100,
         req.query.offset || 0,
@@ -19,9 +19,7 @@ function getUsers(req, res, next) {
         .then((users) => {
             //TODO - map this out according to whatever we decide for the persons object
             return res.json({
-                persons: [
-                    users
-                ]
+                persons: users
             })
         })
         .catch((e) => {

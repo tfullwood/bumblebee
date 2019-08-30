@@ -1,3 +1,4 @@
+require('dotenv').config();
 const { Error } = require('../models/errors')
 
 function errorMiddleware(err, req, res, next) {

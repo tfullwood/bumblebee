@@ -5,7 +5,7 @@ const { Course } = require('../models/courses');
 function getCourses(req, res, next) {
     //TODO - add functionality for sort, orderBy, filter, and fields
         //Validate data
-            //Is limit & offset a num
+            //Is limit & offset an int
     const params = [
         req.query.limit || 100,
         req.query.offset || 0,

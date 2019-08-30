@@ -5,7 +5,7 @@ const { Section } = require('../models/sections');
 function getSections(req, res, next) {
     //TODO - add functionality for sort, orderBy, filter, and fields
         //Validate data
-            //Is limit & offset a num
+            //Is limit & offset an int
     const params = [
         req.query.limit || 100,
         req.query.offset || 0,
@@ -24,7 +24,7 @@ function getSections(req, res, next) {
                             sourcedId: section._id,
                             status: section.status,
                             dateLastModified: section.dateLastModified,
-                            metadata: {}, //no reason to store anything just returning a null val
+                            metadata: {}, //no reason to store anything yet just returning a null val
                             title: section.title,
                             offeringCode: section.offeringCode,
                             organization: {
